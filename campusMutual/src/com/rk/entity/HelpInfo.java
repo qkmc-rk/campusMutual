@@ -1,6 +1,6 @@
 package com.rk.entity;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  * 求助信息 每个用户都可以发布求助信息
@@ -11,7 +11,7 @@ public class HelpInfo {
 
 	private Integer id; 
 	private Integer userid;
-	private Date crettime;
+	private Timestamp crettime;
 	
 	//期限
 	private Integer timeout;
@@ -24,7 +24,7 @@ public class HelpInfo {
 	//暂时没什么用
 	private String imgpath;
 	//赏金
-	private double reward;
+	private Integer reward;
 	
 	
 	public Integer getId() {
@@ -39,10 +39,10 @@ public class HelpInfo {
 	public void setUserid(Integer userid) {
 		this.userid = userid;
 	}
-	public Date getCrettime() {
+	public Timestamp getCrettime() {
 		return crettime;
 	}
-	public void setCrettime(Date crettime) {
+	public void setCrettime(Timestamp crettime) {
 		this.crettime = crettime;
 	}
 	public Integer getTimeout() {
@@ -75,10 +75,10 @@ public class HelpInfo {
 	public void setImgpath(String imgpath) {
 		this.imgpath = imgpath;
 	}
-	public double getReward() {
+	public Integer getReward() {
 		return reward;
 	}
-	public void setReward(double reward) {
+	public void setReward(Integer reward) {
 		this.reward = reward;
 	}
 }

@@ -1,6 +1,6 @@
 package com.rk.entity;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  * 评论 有人发布求助信息(任务)
@@ -16,7 +16,7 @@ public class Comment {
 	
 	private String title;
 	private String comment;
-	private Date commenttime;
+	private Timestamp commenttime;
 	
 	
 	public Integer getId() {
@@ -49,10 +49,10 @@ public class Comment {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
-	public Date getCommenttime() {
+	public Timestamp getCommenttime() {
 		return commenttime;
 	}
-	public void setCommenttime(Date commenttime) {
+	public void setCommenttime(Timestamp commenttime) {
 		this.commenttime = commenttime;
 	}
 }

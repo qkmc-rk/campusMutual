@@ -64,7 +64,7 @@ CREATE TABLE `t_helpinfo` (
   `content` varchar(45) NOT NULL,
   `tip` varchar(45) NOT NULL,
   `imgpath` varchar(45) NOT NULL,
-  `reward` varchar(45) NOT NULL,
+  `reward` int(11) NOT NULL,
   `t_helpinfocol` varchar(45) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_helpinfo_user_idx` (`userid`),
