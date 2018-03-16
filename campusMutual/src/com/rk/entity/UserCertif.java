@@ -6,8 +6,7 @@ package com.rk.entity;
  * @author Mrruan
  *
  */
-public class UserCertif {
-	
+public class UserCertif{
 	private Integer id;
 	private Integer userid;
 	//是否已经实名认证

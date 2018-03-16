@@ -1,6 +1,6 @@
 package com.rk.entity;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  * 公告 entity
@@ -11,7 +11,7 @@ import java.sql.Date;
 public class Notice {
 
 	private Integer id;
-	private Date cretime;
+	private Timestamp cretime;
 	//创建公告的人的ID
 	private Integer creatorid;
 	//公告内容
@@ -22,10 +22,10 @@ public class Notice {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public Date getCretime() {
+	public Timestamp getCretime() {
 		return cretime;
 	}
-	public void setCretime(Date cretime) {
+	public void setCretime(Timestamp cretime) {
 		this.cretime = cretime;
 	}
 	public Integer getCreatorid() {

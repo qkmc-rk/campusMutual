@@ -117,7 +117,7 @@ CREATE TABLE `t_user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `stuid` int(11) NOT NULL,
   `account` varchar(45) NOT NULL,
-  `password0` varchar(45) NOT NULL,
+  `password` varchar(45) NOT NULL,
   `oldpassword` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `stuid_UNIQUE` (`stuid`)

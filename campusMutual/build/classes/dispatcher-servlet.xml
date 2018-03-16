@@ -41,20 +41,22 @@
 	</mvc:annotation-driven>
 
 	<!--配置view controller,直接转发至JSP,不用经过controller  -->
-<!-- 	<mvc:view-controller path="/admin" view-name="/internal/adminlogin"/>
-	<mvc:view-controller path="/about" view-name="/frontend/about"/>
+	<mvc:view-controller path="/regpage" view-name="/frontend/regist"/>
+	<mvc:view-controller path="/logpage" view-name="/frontend/login"/>
+	<mvc:view-controller path="/forgetpage" view-name="/frontend/findpassword"/>
+	<!-- <mvc:view-controller path="/about" view-name="/frontend/about"/>
 	<mvc:view-controller path="/article" view-name="/frontend/article"/> -->
 	<!--配置拦截器用于处理管理员登录  -->
-<!-- 	<mvc:interceptors>
+ 	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/admin/**"/>
-			<mvc:exclude-mapping path="/admin"/>
-			<mvc:exclude-mapping path="/admin/logoff"/>
-			<bean class="com.szwh.interceptor.AdminPrivInterceptor"></bean>
+			<mvc:mapping path="/user/**"/>
+			<mvc:exclude-mapping path="/user/login"/>
+			<mvc:exclude-mapping path="/user/loginoff"/>
+			<bean class="com.rk.interceptor.UserLoginnterceptor"></bean>
 		</mvc:interceptor>
-		<mvc:interceptor>
+		<!-- <mvc:interceptor>
 			<mvc:mapping path="/article_show"/>
 			<bean class="com.szwh.interceptor.ClickInteceptor"></bean>
-		</mvc:interceptor>
-	</mvc:interceptors> -->
+		</mvc:interceptor> -->
+	</mvc:interceptors>
 </beans>
