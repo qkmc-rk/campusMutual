@@ -4,7 +4,7 @@ function ajaxSavePrim(){
 	var neckname = $("input[name=neckname]").val();
 	var usermail = $("input[name=usermail]").val();
 	var userphone = $("input[name=userphone]").val();
-	var sex = $("input[name=sex]").val();
+	var sex = $("select[name=sex]").val();
 	var age = $("input[name=age]").val();
 	var qq = $("input[name=qq]").val();
 	var dormnum = $("input[name=dormnum]").val();

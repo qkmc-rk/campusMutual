@@ -26,8 +26,9 @@
 				<li class="layui-nav-item">
 					<a href="center">个人中心<span class="layui-badge-dot"></span></a>
 				</li>
+				<li class="layui-nav-item"><a href="loginoff">退出登录</a></li>
 				<li class="layui-nav-item">
-					<a href="center"><img src="<%= request.getContextPath() %>/static/img/login/avtar.png" class="layui-nav-img"/>${userPrimInfo.neckname}</a>
+					<a href="javascript:;"><img src="<%= request.getContextPath() %>/static/img/login/avtar.png" class="layui-nav-img"/>${userPrimInfo.neckname}</a>
 				</li>
 			</ul>
 			<!--//导航栏-->

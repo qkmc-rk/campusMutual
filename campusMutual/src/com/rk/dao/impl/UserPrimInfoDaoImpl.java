@@ -32,7 +32,7 @@ public class UserPrimInfoDaoImpl implements UserPrimInfoDao {
 
 	@Override
 	public Integer add(UserPrimInfo userPrimInfo) {
-		String sql = "insert into t_userpriminfo(userid,neckname,usernmail,userphone,sex,age,qq,dormnum,dormaddr,homeaddr)VALUES(?,?,?,?,?,?,?,?,?,?)";
+		String sql = "insert into t_userpriminfo(userid,neckname,usermail,userphone,sex,age,qq,dormnum,dormaddr,homeaddr)VALUES(?,?,?,?,?,?,?,?,?,?)";
 		Integer rs = jdbct.update(sql,userPrimInfo.getUserid(),userPrimInfo.getNeckname(),userPrimInfo.getUsermail(),userPrimInfo.getUserphone(),userPrimInfo.getSex(),
 				userPrimInfo.getAge(),userPrimInfo.getQq(),userPrimInfo.getDormnum(),userPrimInfo.getDormaddr(),userPrimInfo.getHomeaddr());
 		return rs;

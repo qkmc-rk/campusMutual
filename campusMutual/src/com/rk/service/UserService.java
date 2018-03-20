@@ -34,6 +34,7 @@ public interface UserService {
 	UserQuestion getUserQuestion(Integer userid);
 	UserToken getUserToken(Integer userid);
 	User getUser(Integer userid);
+	User getUserByStuid(Integer stuid);
 	
 	Integer updateUserPrimInfo(UserPrimInfo userPrimInfo);
 	Integer updateUser(User user);

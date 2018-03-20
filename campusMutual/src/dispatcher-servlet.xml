@@ -53,6 +53,8 @@
 			<mvc:exclude-mapping path="/user/login"/>
 			<mvc:exclude-mapping path="/user/loginoff"/>
 			<mvc:exclude-mapping path="/user/regist"/>
+			<mvc:exclude-mapping path="/user/findpassword"/>
+			<mvc:exclude-mapping path="/user/getq"/>
 			<bean class="com.rk.interceptor.UserLoginnterceptor"></bean>
 		</mvc:interceptor>
 		<!-- <mvc:interceptor>

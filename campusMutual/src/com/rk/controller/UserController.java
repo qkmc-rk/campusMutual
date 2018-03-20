@@ -13,14 +13,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSON;
 import com.rk.entity.User;
 import com.rk.entity.UserCertif;
 import com.rk.entity.UserPortrait;
 import com.rk.entity.UserPrimInfo;
 import com.rk.entity.UserQuestion;
 import com.rk.entity.UserToken;
+import com.rk.service.PasswordAssistant;
 import com.rk.service.UserService;
 import com.rk.util.JsonResult;
+import com.rk.util.RandomPsd;
 
 /**
  * 登录,注册,找回密码,到主页,到发布信息页面,到我的发布页面,到我的任务,到去接任务页面
@@ -34,6 +37,9 @@ public class UserController {
 	
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	PasswordAssistant passwordAssistant;
 	
 	/**
 	 * 用户登录
@@ -59,6 +65,7 @@ public class UserController {
 		else
 			return JsonResult.RS_FALSE;
 	}
+	
 	
 	/**
 	 * 注销登录
@@ -133,7 +140,8 @@ public class UserController {
 		User user = (User)session.getAttribute("user");
 		UserPrimInfo userPrimInfo = userService.getUserPrimInfo(user.getId());
 		ModelAndView mdv = new ModelAndView();
-		
+		//判断用户是否进行实名认证,若没有跳转到错误页面
+		//.......
 		mdv.addObject("user", user);
 		mdv.addObject("userPrimInfo", userPrimInfo);
 		mdv.setViewName("/frontend/publish");
@@ -199,6 +207,7 @@ public class UserController {
 		userPrimInfo.setQq(qq);
 		userPrimInfo.setDormnum(dormnum);
 		userPrimInfo.setDormaddr(dormaddr);
+		userPrimInfo.setHomeaddr(homeaddr);
 		
 		if(userService.updateUserPrimInfo(userPrimInfo) > 0)
 			return JsonResult.RS_TRUE;
@@ -240,6 +249,71 @@ public class UserController {
 			}
 		}else
 			return JsonResult.RS_FALSE;
+	}
+	
+	/**
+	 * 通过学号获取到用户的密保问题
+	 * @param stuid 学号,注册时候使用的
+	 * @return 三个问题的JSON字符串
+	 */
+	@RequestMapping(value="/getq",method=RequestMethod.POST)
+	@ResponseBody
+	public String getQuestion(@RequestParam("stuid")Integer stuid) {
+		//通过stuid找到user
+		User user = userService.getUserByStuid(stuid);
+		//通过userid找到question
+		UserQuestion userQuestion = userService.getUserQuestion(user.getId());
+		userQuestion.setAnswer1("");
+		userQuestion.setAnswer2("");
+		userQuestion.setAnswer3("");
+		userQuestion.setId(null);
+		userQuestion.setUserid(null);
+		//将question转成Json
+		String JSON_userQuestion = JSON.toJSONString(userQuestion);
+		System.out.println("[LOG][JSON_QUESTION]" + JSON_userQuestion);
+		//返回前台
+		return JSON_userQuestion;
+	}
+	
+	@RequestMapping(value = "/findpassword", method=RequestMethod.POST)
+	@ResponseBody
+	public String findpassword(@RequestParam("answer1") String answer1,
+			@RequestParam("answer2") String answer2,
+			@RequestParam("answer3") String answer3,
+			@RequestParam("stuid") Integer stuid) {
+		System.out.println("[LOG] params:" + answer1 + " " + answer2 + " " + answer3 + "  " + stuid);
+		//首先按照stuid找到user
+		User user = userService.getUserByStuid(stuid);
+		//通过user找到三个密保问题
+		UserQuestion userQuestion = userService.getUserQuestion(user.getId());
+		//判断三个密保问题是否回答正确
+		if(userQuestion.getAnswer1().equals(answer1) &&
+				userQuestion.getAnswer2().equals(answer2) &&
+				userQuestion.getAnswer3().equals(answer3)) {
+			System.out.println("[LOG]密保验证通过");
+			//正确,重新生成随机密码放置在数据库
+			String newPsd = RandomPsd.getRadomPassword();
+			user.setOldpassword(user.getPassword());
+			user.setPassword(newPsd);
+			if(userService.updateUser(user) > 0) {
+				System.out.println("[LOG]密码重置成功");
+				//然后发送邮件通知用户重置密码成功,并附上密码
+				UserPrimInfo userPrimInfo = userService.getUserPrimInfo(user.getId());
+				System.out.println("[LOG]开始发送邮件");
+				passwordAssistant.passwordToMailWithInlineResource(userPrimInfo.getUsermail(), newPsd, userPrimInfo.getNeckname(), user.getOldpassword());
+				System.out.println("[LOG]结束发送邮件");
+				//返回正确
+				return JsonResult.RS_TRUE;
+			}else {
+				System.out.println("[LOG]密码更新失败");
+				return JsonResult.RS_FALSE;
+			}
+			
+		}else {
+			System.out.println("[LOG]密保验证失败");
+			//错误,返回错误.
+			return JsonResult.RS_FALSE;
+		}
 	}
 }
 

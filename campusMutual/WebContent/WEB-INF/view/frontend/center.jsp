@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -20,9 +21,10 @@
 				</li>
 				<!--页面链接-->
 				<li class="layui-nav-item"><a href="index">主页</a></li>
+				<li class="layui-nav-item"><a href="loginoff">退出登录</a></li>
 				<!--//页面链接-->
 				<li class="layui-nav-item">
-					<a href=""><img src="<%= request.getContextPath() %>/static/img/login/avtar.png" class="layui-nav-img"/>mrruan</a>
+					<a href="javascript:;"><img src="<%= request.getContextPath() %>/static/img/login/avtar.png" class="layui-nav-img"/>${userPrimInfo.neckname }</a>
 				</li>
 			</ul>
 			<!--//导航栏-->
@@ -55,15 +57,24 @@
 						</div>
 						<br />
 						<div class="layui-form-item layui-inline">
-							<label class="layui-form-label">性别 <span class="layui-badge-dot"></span></label>
-							<div class="layui-input-block">
-								<input type="text" name="sex" required  lay-verify="required" value="${userPrimInfo.sex }" disabled="disabled" placeholder="请输入性别" autocomplete="off" class="layui-input">
-							</div>
+						    <label class="layui-form-label">性别</label>
+						    <div class="layui-input-block">
+						      <select name="sex" lay-verify="required">
+						        	<c:if test="${userPrimInfo.sex == 'M'}">
+						        		<option value="M" selected="selected">男</option>
+						       			<option value="F">女</option>
+						        	</c:if>
+						        	<c:if test="${userPrimInfo.sex == 'F'}">
+						        		<option value="M">男</option>
+						        		<option value="F" selected="selected">女</option>
+						        	</c:if>
+						      </select>
+						    </div>
 						</div>
 						<div class="layui-form-item layui-inline">
 							<label class="layui-form-label">年龄</label>
 							<div class="layui-input-block">
-								<input type="number" name="age" required  lay-verify="required" value="${userPrimInfo.age }" placeholder="请输入年龄" autocomplete="off" class="layui-input">
+								<input type="" name="age" required  lay-verify="required" value="${userPrimInfo.age }" placeholder="请输入年龄" autocomplete="off" class="layui-input">
 							</div>
 						</div>
 						<div class="layui-form-item layui-inline">
@@ -189,5 +200,13 @@
 			    </div>
 			</div>
 		</div>		
+		<script type="text/javascript">
+			$(document).ready(function(){
+				layui.use('form', function(){
+					var form = layui.form(); 
+					form.render();
+				});
+			});
+		</script>
 	</body>
 </html>
