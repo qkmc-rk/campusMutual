@@ -11,6 +11,7 @@
 
 	<body>
 		<script src="<%= request.getContextPath() %>/static/js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="<%= request.getContextPath() %>/static/js/front/login.js" type="text/javascript" charset="utf-8"></script>
 		<!--SIGN UP-->
 		<h1>大学生校园互助平台  - 登录</h1>
 		<div class="login-form">
@@ -25,13 +26,13 @@
 				<img src="<%= request.getContextPath() %>/static/img/login/avtar.png" />
 			</div>
 			<form>
-				<input type="text" class="text" value="用户名" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '用户名';}">
+				<input type="text" id="account" class="text" value="用户名" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '用户名';}">
 				<div class="key">
-					<input type="password" value="密码" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '密码';}">
+					<input type="password" id="password" value="密码" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '密码';}">
 				</div>
 			</form>
 			<div class="signin">
-				<input type="submit" value="登录">
+				<input type="submit" onclick="ajaxLogin()" value="登录">
 			</div>
 			<div class="signin">
 				<a href="<%= request.getContextPath() %>/forgetpage" style="color: white;">找回密码</a> | <a href="<%= request.getContextPath() %>/regpage" style="color: white;">注册账号</a>

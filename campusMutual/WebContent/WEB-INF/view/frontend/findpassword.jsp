@@ -24,7 +24,7 @@
 				<div class="clear"> </div>
 				<h3>找回密码说明,请参照 <span><a href="#">找回密码说明</a> <span></h3>
 				<div class="submit">
-					<input type="submit" onclick="myFunction()" value="重置密码">
+					<input type="button" onclick="myFunction()" value="重置密码">
 				</div>
 				<div class="clear"> </div>
 			</form>

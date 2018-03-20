@@ -15,29 +15,29 @@
 			<!--导航栏-->
 			<ul class="layui-nav" layui-filter="">
 				<!--页面链接-->
-				<li class="layui-nav-item"><a href="publish.html">发布信息</a></li>
-				<li class="layui-nav-item"><a href="mypublish.html">我的发布</a></li>
-				<li class="layui-nav-item"><a href="mywork.html">我的任务</a></li>
-				<li class="layui-nav-item"><a href="works.html">最新发布</a></li>
+				<li class="layui-nav-item"><a href="publish">发布信息</a></li>
+				<li class="layui-nav-item"><a href="mypublish">我的发布</a></li>
+				<li class="layui-nav-item"><a href="mywork">已接任务</a></li>
+				<li class="layui-nav-item"><a href="works">最新发布</a></li>
 				<!--//页面链接-->
 				<li class="layui-nav-item logo">
 					<h2>大学生校园互助平台</h2>
 				</li>
 				<li class="layui-nav-item">
-					<a href="center.html">个人中心<span class="layui-badge-dot"></span></a>
+					<a href="center">个人中心<span class="layui-badge-dot"></span></a>
 				</li>
 				<li class="layui-nav-item">
-					<a href="center.html"><img src="<%= request.getContextPath() %>/static/img/login/avtar.png" class="layui-nav-img"/>${userPrimInfo.neckname}</a>
+					<a href="center"><img src="<%= request.getContextPath() %>/static/img/login/avtar.png" class="layui-nav-img"/>${userPrimInfo.neckname}</a>
 				</li>
 			</ul>
 			<!--//导航栏-->
 			<!--主要内容-->
 			<div class="layui-row">
 				<ul class="click-block">
-					<a href="publish.html"><li class="click-block-item click-block-item1">发布信息</li></a>
-					<a href="mypublish.html"><li class="click-block-item click-block-item2">我的发布</li></a>
-					<a href="mywork.html"><li class="click-block-item click-block-item3">我的任务</li></a>
-					<a href="works.html"><li class="click-block-item click-block-item4">去接任务</li></a>
+					<a href="publish"><li class="click-block-item click-block-item1">发布信息</li></a>
+					<a href="mypublish"><li class="click-block-item click-block-item2">我的发布</li></a>
+					<a href="mywork"><li class="click-block-item click-block-item3">已接任务</li></a>
+					<a href="works"><li class="click-block-item click-block-item4">最新发布</li></a>
 				</ul>
 			</div>
 		</div>		

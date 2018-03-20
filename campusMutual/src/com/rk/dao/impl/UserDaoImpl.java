@@ -33,6 +33,7 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public User selectByAccount(String account) {
+		System.out.println("[LOG][USERDAO][selectByAccount] param:" + account);
 		String sql = "select * from t_user where account=?";
 		RowMapper<User> rowMapper = new BeanPropertyRowMapper<>(User.class);
 		User user = jdbct.queryForObject(sql, rowMapper, account);

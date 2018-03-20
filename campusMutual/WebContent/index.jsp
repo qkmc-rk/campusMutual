@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>麻辣个香锅</title>
+<title>大学生校园互助平台</title>
 </head>
 <body>
-	<h1>我日你妈SB</h1>
+	<h1>进入个人中心<a href="<%= request.getContextPath() %>/logpage"> →_→</a></h1>
 </body>
 </html>

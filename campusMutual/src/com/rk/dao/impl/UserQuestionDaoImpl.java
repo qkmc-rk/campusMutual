@@ -33,8 +33,8 @@ public class UserQuestionDaoImpl implements UserQuestionDao {
 
 	@Override
 	public Integer add(UserQuestion userQuestion) {
-		String sql = "insert into t_userquestion(question1,answer1,question2,answer2,question3,answer3)values(?,?,?,?,?,?)";
-		Integer rs = jdbct.update(sql,userQuestion.getQuestion1(),userQuestion.getAnswer1(),userQuestion.getQuestion2(),userQuestion.getAnswer2(),
+		String sql = "insert into t_userquestion(userid,question1,answer1,question2,answer2,question3,answer3)values(?,?,?,?,?,?,?)";
+		Integer rs = jdbct.update(sql,userQuestion.getUserid(),userQuestion.getQuestion1(),userQuestion.getAnswer1(),userQuestion.getQuestion2(),userQuestion.getAnswer2(),
 				userQuestion.getQuestion3(),userQuestion.getAnswer3());
 		return rs;
 	}
@@ -55,7 +55,7 @@ public class UserQuestionDaoImpl implements UserQuestionDao {
 
 	@Override
 	public Integer update(UserQuestion userQuestion) {
-		String sql = "update t_userquestion set question1=?,answer1=?,question2=?,answer2=?,question3=?answer3=? where id=?";
+		String sql = "update t_userquestion set question1=?,answer1=?,question2=?,answer2=?,question3=?,answer3=? where id=?";
 		Integer rs = jdbct.update(sql,userQuestion.getQuestion1(),userQuestion.getAnswer1(),userQuestion.getQuestion2(),userQuestion.getAnswer2(),
 				userQuestion.getQuestion3(),userQuestion.getAnswer3(),userQuestion.getId());
 		return rs;

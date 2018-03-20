@@ -11,24 +11,26 @@
 	</head>
 
 	<body>
+		<script src="<%= request.getContextPath() %>/static/js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="<%= request.getContextPath() %>/static/js/front/regist.js" type="text/javascript" charset="utf-8"></script>
 		<div class="main">
 			<h2>注册 - 大学生校园互助平台</h2>
 			<form>
 				<div class="lable">
-					<input type="text" name="firstname" class="text" value="" placeholder="姓氏">
-					<input type="text" name="secondname" class="text" value="" placeholder="名字">
+					<input type="text" id="firstname" class="text" value="" placeholder="姓氏">
+					<input type="text" id="lastname" class="text" value="" placeholder="名字">
 				</div>
 				<div class="clear"> </div>
 				<div class="lable-2">
-					<input type="text" name="stuid" class="text" value="" placeholder="学号"  >
-					<input type="text" name="account" class="text" value="" placeholder="账号"  >
-					<input type="password" name="password" class="text" value="" placeholder="密码"  >
-					<input type="password" name="password2" class="text" value="" placeholder="确认密码"  >
+					<input type="text" id="stuid" class="text" value="" placeholder="学号"  >
+					<input type="text" id="account" class="text" value="" placeholder="账号"  >
+					<input type="password" id="password" class="text" value="" placeholder="密码"  >
+					<input type="password" id="password2" class="text" value="" placeholder="确认密码"  >
 				</div>
 				<div class="clear"> </div>
-				<h3>通过注册, 表明您已同意我们的 <span><a href="#">协议手册</a> <span></h3>
+				<h3>通过注册, 表明您已同意我们的 <span><a href="#">协议手册</a> </span></h3>
 				<div class="submit">
-					<input type="submit" onclick="myFunction()" value="创建新用户">
+					<input type="button" onclick="ajax_regist()" value="创建新用户">
 				</div>
 				<div class="clear"> </div>
 			</form>
@@ -41,9 +43,5 @@
 			</p>
 		</div>
 		<!-----//end-copyright---->
-
-
-		
 	</body>
-
 </html>

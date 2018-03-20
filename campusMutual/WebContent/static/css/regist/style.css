@@ -167,7 +167,7 @@ body{
 	padding:5px 4px;
 	text-align: center;
 }
-input[type=submit] {
+input[type=button] {
 	padding: 17px 30px;
 	color: #fff;
 	float: right;
