@@ -28,7 +28,7 @@ function ajax_regist(){
 		success:function(data){
 			var obj = JSON.parse(data);
 			if(obj.result == 'false'){
-				alert("注册失败了");
+				alert("注册失败了!");
 			}else{
 				alert("注册成功!请登录");
 				//暂时这样设置,会出问题
