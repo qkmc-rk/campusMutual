@@ -1,3 +1,3 @@
 
 - 2018-3-20
-- Ôö¼Ójavax.mailµÄÒÀÀµ
+- add javax.mail .jar
