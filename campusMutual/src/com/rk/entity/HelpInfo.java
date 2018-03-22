@@ -14,7 +14,7 @@ public class HelpInfo {
 	private Timestamp crettime;
 	
 	//期限
-	private Integer timeout;
+	private Long timeout;
 	//标题
 	private String title;
 	//主要内容
@@ -45,11 +45,11 @@ public class HelpInfo {
 	public void setCrettime(Timestamp crettime) {
 		this.crettime = crettime;
 	}
-	public Integer getTimeout() {
+	public Long getTimeout() {
 		return timeout;
 	}
-	public void setTimeout(Integer timeout) {
-		this.timeout = timeout;
+	public void setTimeout(long l) {
+		this.timeout = l;
 	}
 	public String getTitle() {
 		return title;

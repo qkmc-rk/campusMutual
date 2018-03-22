@@ -2,6 +2,8 @@ package com.rk.dao;
 
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import com.rk.entity.HelpInfo;
 
 public interface HelpInfoDao {
@@ -26,4 +28,11 @@ public interface HelpInfoDao {
 	//查
 	HelpInfo selectById(Integer id);
 	List<HelpInfo> selectByUserId(Integer userId);
+
+	/**
+	 * 通过content查找helpinfo,最主要是拿到helpinfo的id...
+	 * @param content
+	 * @return
+	 */
+	HelpInfo selectByContent(String content);
 }

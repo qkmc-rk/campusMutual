@@ -58,6 +58,13 @@ public class HelpInfoDaoImpl implements HelpInfoDao {
 		HelpInfo helpInfo = jdbct.queryForObject(sql, rowMapper, id);
 		return helpInfo;
 	}
+	@Override
+	public HelpInfo selectByContent(String content) {
+		String sql = "select * from t_helpinfo where content=?";
+		RowMapper<HelpInfo> rowMapper = new BeanPropertyRowMapper<>(HelpInfo.class);
+		HelpInfo helpInfo = jdbct.queryForObject(sql, rowMapper, content);
+		return helpInfo;
+	}
 
 	@Override
 	public List<HelpInfo> selectByUserId(Integer userId) {

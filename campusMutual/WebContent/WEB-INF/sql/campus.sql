@@ -61,7 +61,7 @@ CREATE TABLE `t_helpinfo` (
   `crettime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `timeout` bigint(20) NOT NULL,
   `title` varchar(45) NOT NULL,
-  `content` varchar(45) NOT NULL,
+  `content` text NOT NULL,
   `tip` varchar(45) NOT NULL,
   `imgpath` varchar(45) NOT NULL,
   `reward` int(11) NOT NULL,

@@ -57,6 +57,10 @@
 			<mvc:exclude-mapping path="/user/getq"/>
 			<bean class="com.rk.interceptor.UserLoginnterceptor"></bean>
 		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/task/**"/>
+			<bean class="com.rk.interceptor.TaskInterceptor"></bean>
+		</mvc:interceptor>
 		<!-- <mvc:interceptor>
 			<mvc:mapping path="/article_show"/>
 			<bean class="com.szwh.interceptor.ClickInteceptor"></bean>

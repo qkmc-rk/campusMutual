@@ -1,6 +1,8 @@
 package com.rk.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
+import com.rk.entity.HelpInfo;
+import com.rk.entity.HelpState;
 import com.rk.entity.User;
 import com.rk.entity.UserCertif;
 import com.rk.entity.UserPortrait;
@@ -21,6 +25,7 @@ import com.rk.entity.UserPrimInfo;
 import com.rk.entity.UserQuestion;
 import com.rk.entity.UserToken;
 import com.rk.service.PasswordAssistant;
+import com.rk.service.TaskService;
 import com.rk.service.UserService;
 import com.rk.util.JsonResult;
 import com.rk.util.RandomPsd;
@@ -41,6 +46,8 @@ public class UserController {
 	@Autowired
 	PasswordAssistant passwordAssistant;
 	
+	@Autowired
+	TaskService taskService;
 	/**
 	 * 用户登录
 	 * @param account 账号
@@ -132,6 +139,11 @@ public class UserController {
 		return mdv;
 	}
 	
+	/**
+	 * 去任务发布页面
+	 * @param session session中的user的userid用于获取用户的基础信息
+	 * @return ModelAndView publish页面
+	 */
 	@ResponseBody
 	@RequestMapping("/publish")
 	public ModelAndView publish(HttpSession session) {
@@ -149,7 +161,45 @@ public class UserController {
 	}
 	
 	/**
+	 * 跳转我的发布页面,可以看到我发布的任务
+	 * @param session
+	 * @return mypublish view
+	 */
+	@RequestMapping("/mypublish")
+	@ResponseBody
+	public ModelAndView mypublish(HttpSession session) {
+		ModelAndView mdv = new ModelAndView();
+		User user = (User)session.getAttribute("user");
+		Integer userid = user.getId();
+		//获取userid对应的的helpinfo和state
+		List<HelpInfo> list = taskService.findByUserId(userid);
+		List<HelpState> listState = new ArrayList<>();
+		if(list != null) {
+			mdv.addObject("helpInfoList", list);
+			//获取对应的state.
+			for (HelpInfo helpInfo : list) {
+				HelpState hs = taskService.findByInfoId(helpInfo.getId());
+				listState.add(hs);
+			}
+			mdv.addObject("helpStateList", listState);
+		}
+		mdv.setViewName("/frontend/mypublish");
+		//将helpinfo的list放在model中,将user放入并返回页面.
+		return mdv;
+	}
+	
+	
+	/**
 	 * 写一个注册功能
+	 */
+	/**
+	 * 注册功能
+	 * @param firstname
+	 * @param lastname
+	 * @param stuid
+	 * @param account
+	 * @param password
+	 * @return 注册是否成功
 	 */
 	@RequestMapping(value="/regist",method=RequestMethod.POST)
 	@ResponseBody
@@ -174,6 +224,20 @@ public class UserController {
 	}
 	
 	
+	/**
+	 * 保存用户的基础信息
+	 * @param neckname
+	 * @param usermail
+	 * @param userphone
+	 * @param sex
+	 * @param age
+	 * @param qq
+	 * @param dormnum
+	 * @param dormaddr
+	 * @param homeaddr
+	 * @param userid
+	 * @return 是否保存成功
+	 */
 	@RequestMapping("/saveuserprim")
 	@ResponseBody
 	public String saveUserPrim(@RequestParam("neckname") String neckname,
