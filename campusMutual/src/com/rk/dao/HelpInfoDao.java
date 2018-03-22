@@ -28,6 +28,7 @@ public interface HelpInfoDao {
 	//查
 	HelpInfo selectById(Integer id);
 	List<HelpInfo> selectByUserId(Integer userId);
+	List<HelpInfo> selectAll();
 
 	/**
 	 * 通过content查找helpinfo,最主要是拿到helpinfo的id...

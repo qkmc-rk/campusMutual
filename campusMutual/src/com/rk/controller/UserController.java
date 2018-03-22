@@ -144,7 +144,6 @@ public class UserController {
 	 * @param session session中的user的userid用于获取用户的基础信息
 	 * @return ModelAndView publish页面
 	 */
-	@ResponseBody
 	@RequestMapping("/publish")
 	public ModelAndView publish(HttpSession session) {
 		System.out.println("[LOG][SESSION] content:" + session.toString());
@@ -166,7 +165,6 @@ public class UserController {
 	 * @return mypublish view
 	 */
 	@RequestMapping("/mypublish")
-	@ResponseBody
 	public ModelAndView mypublish(HttpSession session) {
 		ModelAndView mdv = new ModelAndView();
 		User user = (User)session.getAttribute("user");
@@ -181,13 +179,131 @@ public class UserController {
 				HelpState hs = taskService.findByInfoId(helpInfo.getId());
 				listState.add(hs);
 			}
+			UserPrimInfo userPrimInfo = userService.getUserPrimInfo(userid);
 			mdv.addObject("helpStateList", listState);
+			mdv.addObject("userPrimInfo", userPrimInfo);
+			mdv.addObject("user", user);
 		}
 		mdv.setViewName("/frontend/mypublish");
 		//将helpinfo的list放在model中,将user放入并返回页面.
 		return mdv;
 	}
 	
+	/**
+	 * 
+	 * 转到所有任务页面
+	 * @param session
+	 * @return 任务页面
+	 */
+	@RequestMapping("/works")
+	public ModelAndView works(HttpSession session) {
+		ModelAndView mdv = new ModelAndView();
+		User user = (User)session.getAttribute("user");
+		Integer userid = user.getId();
+		//需要什么内容?primInfo,然后state为未被接的任务
+		UserPrimInfo userPrimInfo = userService.getUserPrimInfo(userid);
+		List<HelpInfo> list = null;
+		List<HelpInfo> listafter = new ArrayList<>();
+		if(userPrimInfo != null) {
+			mdv.addObject("userPrimInfo", userPrimInfo);
+			//然后获取所有的work.
+			list = taskService.findAll();
+			for (HelpInfo helpInfo : list) {
+				if(taskService.findByInfoId(helpInfo.getId()).getReceived() != 1) {
+					listafter.add(helpInfo);
+				}
+			}
+		}
+		mdv.addObject("userPrimInfo", userPrimInfo);
+		mdv.addObject("user", user);
+		mdv.addObject("helpInfoList", listafter);
+		mdv.setViewName("/frontend/works");
+		return mdv;
+	}
+	
+	/**
+	 * 转到我接受的任务的页面
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping("mywork")
+	public ModelAndView mywork(HttpSession session) {
+		ModelAndView mdv = new ModelAndView();
+		User user = (User)session.getAttribute("user");
+		Integer userid = user.getId();
+		UserPrimInfo userPrimInfo = userService.getUserPrimInfo(userid);
+		List<HelpInfo> list = null;
+		List<HelpInfo> listafter = new ArrayList<>();
+		if(userPrimInfo != null) {
+			mdv.addObject("userPrimInfo", userPrimInfo);
+			list = taskService.findAll();
+			for (HelpInfo helpInfo : list) {
+				Integer receiverid = taskService.findByInfoId(helpInfo.getId()).getReceiverid();
+				if(receiverid != null && receiverid.intValue() == userid.intValue()) {
+					listafter.add(helpInfo);
+				}
+			}
+			System.out.println("[LOG][/mywork]-->helpInfoList" + listafter);
+		}
+		mdv.addObject("userPrimInfo", userPrimInfo);
+		mdv.addObject("user", user);
+		mdv.addObject("helpInfoList", listafter);
+		mdv.setViewName("/frontend/mywork");
+		return mdv;
+	}
+	
+	/**
+	 * 公共的work_detail,另外还有一个我的任务的详细页面,如果是我自己的,肯定是不能接受的!不能接受自己的任务
+	 * @param session
+	 * @param infoid
+	 * @return 公共的work_detail页面
+	 */
+	@RequestMapping("/work_detail")
+	public ModelAndView work_detail(HttpSession session,
+			@RequestParam("infoid")Integer infoid){
+		ModelAndView mdv = new ModelAndView();
+		User user = (User)session.getAttribute("user");
+		UserPrimInfo userPrimInfo = userService.getUserPrimInfo(user.getId());
+		HelpInfo helpInfo = taskService.findHelpInfoById(infoid);
+		HelpState helpState = taskService.findByInfoId(helpInfo.getId());
+		
+		mdv.addObject("helpInfo",helpInfo);
+		mdv.addObject("helpState",helpState);
+		mdv.addObject("user",user);
+		mdv.addObject("userPrimInfo",userPrimInfo);
+		
+		mdv.setViewName("/frontend/work_detail");
+		return mdv;
+	}
+	
+	@RequestMapping("/my_detail")
+	public ModelAndView my_detail(HttpSession session,Integer infoid) {
+		ModelAndView mdv = new ModelAndView();
+		User user = (User)session.getAttribute("user");
+		//获取userid
+		Integer userid = user.getId();
+		
+		//获取info,判断是否是当前登录用户
+		HelpInfo helpInfo = taskService.findHelpInfoById(infoid);
+		if(helpInfo != null && helpInfo.getUserid().intValue() == userid.intValue()) {
+			HelpState helpState = taskService.findByInfoId(helpInfo.getId());
+			UserPrimInfo userPrimInfo = userService.getUserPrimInfo(user.getId());
+			
+			//防止数据
+			mdv.addObject("helpInfo",helpInfo);
+			mdv.addObject("helpState",helpState);
+			mdv.addObject("user",user);
+			mdv.addObject("userPrimInfo",userPrimInfo);
+			mdv.setViewName("/frontend/my_detail");
+		}else {
+			//非法访问
+			mdv.addObject("msg", "你为什么要非法访问?!很好玩吗???");
+			mdv.setViewName("/error");
+		}
+		
+		return mdv;
+		
+	}
 	
 	/**
 	 * 写一个注册功能

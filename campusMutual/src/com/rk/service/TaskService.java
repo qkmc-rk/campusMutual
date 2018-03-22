@@ -47,4 +47,8 @@ public interface TaskService {
 	List<HelpInfo> findByUserId(Integer userid);
 	
 	HelpState findByInfoId(Integer infoid);
+
+	List<HelpInfo> findAll();
+	
+	HelpInfo findHelpInfoById(Integer infoid);
 }

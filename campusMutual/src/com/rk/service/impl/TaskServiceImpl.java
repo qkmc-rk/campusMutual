@@ -97,4 +97,30 @@ public class TaskServiceImpl implements TaskService {
 			return null;
 		}
 	}
+
+	@Override
+	public List<HelpInfo> findAll() {
+		List<HelpInfo> list = null;
+		try {
+			list = helpInfoDao.selectAll();
+			return list;
+		} catch (Exception e) {
+			System.out.println("[EXCEPTION] 查找用户发布任务失败!");
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public HelpInfo findHelpInfoById(Integer infoid) {
+		HelpInfo helpInfo = null;
+		try {
+			helpInfo = helpInfoDao.selectById(infoid);
+		} catch (Exception e) {
+			System.out.println("[LOG]未能找到id=" +infoid + "的helpInfo");
+			e.printStackTrace();
+			return null;
+		}
+		return helpInfo;
+	}
 }

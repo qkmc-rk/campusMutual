@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
@@ -22,11 +23,10 @@
 
 	<body>
 		<div class="layui-fluid">
-			
 			<!--导航栏-->
 			<ul class="layui-nav" layui-filter="">
 				<li class="layui-nav-item logo">
-					<h2><a href="index">我的发布 - 大学生校园互助平台</a></h2>
+					<h2>最新发布 - 大学生校园互助平台</h2>
 				</li>
 				<!--页面链接-->
 				<li class="layui-nav-item"><a href="publish">发布信息</a></li>
@@ -48,7 +48,7 @@
 				<div class="site-title">
 					<fieldset>
 						<legend>
-							<a name="use" style="text-decoration: none; color: gainsboro;">我发布的任务</a>
+							<a name="use" style="text-decoration: none; color: gainsboro;">最新发布任务</a>
 						</legend>
 					</fieldset>
 				</div>
@@ -56,50 +56,12 @@
 					<!--基础信息内容-->
 					<c:forEach items="${helpInfoList }" var="helpInfo" varStatus="status">
 						<div class="layui-elem-quote mypublish1">
-							<p>
-								<i style="color: red;">${helpInfo.title }</i> 
-								| 创建时间:<b style="color:#555555">
-								<fmt:formatDate value="${helpInfo.crettime }" pattern="yyyy-MM-dd"/></b>
-								| 截止时间:<b style="color:#555555"><jsp:setProperty name="dateValue" property="time" value="${helpInfo.timeout }"/>
-								<fmt:formatDate value="${dateValue }" pattern="yyyy-MM-dd"/></b> | 赏金<b>${helpInfo.reward }</b>元
-								<!--任务状态:  -->
-								<c:if test="${helpStateList[status.index].received > 0}">
-									<c:if test="${helpStateList[status.index].achieved > 0}">
-										| <big style="color:green"> 已完成</big>
-									</c:if>
-									<c:if test="${helpStateList[status.index].achieved < 1}">
-										| <big style="color:red"> 已被接受</big>
-									</c:if>
-									
-								</c:if>
-								<c:if test="${helpStateList[status.index].received < 1 && helpStateList[status.index].achieved < 1}">
-									| <big style="color:gray"> 等待接受</big>
-								</c:if>
-							</p>
-							<p>
-							<!--已完成!  -->
-							<c:if test="${helpStateList[status.index].achieved > 0}">
-								[<a href="">查看</a>]
-							</c:if>
-							<!--未完成  -->
-							<c:if test="${helpStateList[status.index].achieved < 1}">
-								<!--已被接受  -->
-								<c:if test="${helpStateList[status.index].received == 1}">
-									[<a href="">查看</a>]
-								</c:if>
-								<!--未被接收  -->
-								<c:if test="${helpStateList[status.index].received == 0}">
-									[
-									<a href="">删除</a>] | [
-									<a href="">更改赏金</a>] | [
-									<a href="">更改时间</a>] | [
-									<a href="">查看</a>]
-								</c:if>
-							</c:if>
-							</p>
+							<p><i style="color: red;">${helpInfo.title }</i> | 创建时间:<b style="color:#555555"><fmt:formatDate value="${helpInfo.crettime }" pattern="yyyy-MM-dd"/></b> | 截止时间:<b style="color:#555555"><jsp:setProperty name="dateValue" property="time" value="${helpInfo.timeout }"/><fmt:formatDate value="${dateValue }" pattern="yyyy-MM-dd"/></b> | 赏金<b>${helpInfo.reward }</b></p>
+							<p>[
+								<a href="work_detail">查看</a>]</p>
 						</div>
 					</c:forEach>
-					<!--分页 未实现-->
+					<!--分页-->
 					<!-- <nav aria-label="Page navigation">
 					  <ul class="pagination">
 					    <li>

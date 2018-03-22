@@ -80,7 +80,7 @@ public class HelpInfoDaoImpl implements HelpInfoDao {
 					helpInfo.setId(rs.getInt(1));
 					helpInfo.setUserid(rs.getInt(2));
 					helpInfo.setCrettime(rs.getTimestamp(3));
-					helpInfo.setTimeout(rs.getInt(4));
+					helpInfo.setTimeout(rs.getLong(4));
 					helpInfo.setTitle(rs.getString(5));
 					helpInfo.setContent(rs.getString(6));
 					helpInfo.setTip(rs.getString(7));
@@ -94,6 +94,37 @@ public class HelpInfoDaoImpl implements HelpInfoDao {
 		};
 		//查询
 		List<HelpInfo> list = jdbct.queryForObject(sql, rowMapper, userId);
+		return list;
+	}
+
+	@Override
+	public List<HelpInfo> selectAll() {
+		String sql = "select * from t_helpinfo";
+		//rowMapper结果集映射使用
+		RowMapper<List<HelpInfo>> rowMapper = new RowMapper<List<HelpInfo>>() {
+			@Override
+			public List<HelpInfo> mapRow(ResultSet rs, int arg1) throws SQLException {
+				List<HelpInfo> list = new ArrayList<>();
+				HelpInfo helpInfo = null;
+				do {
+					helpInfo = new HelpInfo();
+					helpInfo.setId(rs.getInt(1));
+					helpInfo.setUserid(rs.getInt(2));
+					helpInfo.setCrettime(rs.getTimestamp(3));
+					helpInfo.setTimeout(rs.getLong(4));
+					helpInfo.setTitle(rs.getString(5));
+					helpInfo.setContent(rs.getString(6));
+					helpInfo.setTip(rs.getString(7));
+					helpInfo.setImgpath(rs.getString(8));
+					helpInfo.setReward(rs.getInt(9));
+					list.add(helpInfo);
+				}while(rs.next());
+				
+				return list;
+			}
+		};
+		//查询
+		List<HelpInfo> list = jdbct.queryForObject(sql, rowMapper);
 		return list;
 	}
 
