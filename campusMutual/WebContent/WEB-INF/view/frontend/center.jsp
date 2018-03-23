@@ -36,7 +36,7 @@
 			    </div>
 			    <div class="site-text site-block">
 			    	<!--基础信息内容-->
-			    	<form class="layui-form" action="" method="post">
+			    	<div class="layui-form">
 						<div class="layui-form-item layui-inline">
 							<label class="layui-form-label">昵称</label>
 							<div class="layui-input-block">
@@ -67,6 +67,10 @@
 						        	<c:if test="${userPrimInfo.sex == 'F'}">
 						        		<option value="M">男</option>
 						        		<option value="F" selected="selected">女</option>
+						        	</c:if>
+						        	<c:if test="${userPrimInfo.sex != 'M' && userPrimInfo.sex != 'F'}">
+						        		<option value="M" selected="selected">男</option>
+						       			<option value="F">女</option>
 						        	</c:if>
 						      </select>
 						    </div>
@@ -112,10 +116,10 @@
 						<br />
 						 <div class="layui-form-item">
 						    <div class="layui-input-block">
-						      <button class="layui-btn center-form-btn" lay-submit lay-filter="formDemo" onclick="ajaxSavePrim()" >保存信息</button>   <span style="color: orangered;">注意:红点代表不可修改内容</span>
+						      <button class="layui-btn center-form-btn" onclick="ajaxSavePrim()" >保存信息</button>   <span style="color: orangered;">注意:红点代表不可修改内容</span>
 						    </div>
 						  </div>
-			    	</form>
+			    	</div>
 			    </div>
 			</div>
 			<div class="layui-row">
@@ -125,7 +129,7 @@
 			    </div>
 			    <div class="site-text site-block">
 			    	<!--安全信息内容-->
-			    	<form class="layui-form" action="" method="post">
+			    	<div class="layui-form">
 			    		<input type="text" name="userid" value="${user.id }" disabled="disabled" style="display: none">
 			    		<div class="layui-form-item layui-inline">
 							<label class="layui-form-label">账号 <span class="layui-badge-dot"></span></label>
@@ -191,12 +195,45 @@
 								<input type="text" name="answer3" required  lay-verify="required" value="${userQuestion.answer3 }" autocomplete="off" class="layui-input">
 							</div>
 						</div>
+						<div class="layui-form-item layui-inline">
+							<label class="layui-form-label" style="color:red;">实名状态</label>
+							<div class="layui-input-block">
+								<c:if test="${userCertif.state == 1 }">
+									<input type="text" name="" required  lay-verify="required" value="已经实名认证" disabled="disabled" autocomplete="off" class="layui-input">
+								</c:if>
+								<c:if test="${userCertif.state == 0 }">
+									<c:if test="${not empty userCertif.cardpath}">
+										<input type="text" name="" required  lay-verify="required" value="正在审核" disabled="disabled" autocomplete="off" class="layui-input">
+									</c:if>
+									
+									<c:if test="${empty userCertif.cardpath}">
+										<input type="text" name="" required  lay-verify="required" value="未实名认证" disabled="disabled" autocomplete="off" class="layui-input">
+									</c:if>
+								</c:if>
+							</div>
+						</div>
+						<c:if test="${userCertif.state == 0 }">
+							<c:if test="${not empty userCertif.cardpath}">
+								<div class="layui-form-item layui-inline">
+									<div class="layui-input-block">
+										<button class="layui-btn layui-inline"  style="margin-bottom: 2px; margin-left:-115px"><a href="certify">重新上传<a></button>
+									</div>
+								</div>
+							</c:if>
+							<c:if test="${empty userCertif.cardpath}">
+								<div class="layui-form-item layui-inline">
+									<div class="layui-input-block">
+										<button class="layui-btn layui-inline"  style="margin-bottom: 2px; margin-left:-115px"><a href="certify">实名认证<a></button>
+									</div>
+								</div>
+							</c:if>
+						</c:if>
 			    		<div class="layui-form-item">
 						    <div class="layui-input-block">
-						      <button class="layui-btn center-form-btn" lay-submit lay-filter="formDemo" onclick="ajaxSaveSafe()">保存信息</button>   <span style="color: orangered;">注意:红点代表不可修改内容</span>
+						      <button class="layui-btn center-form-btn"  onclick="ajaxSaveSafe()">保存信息</button>   <span style="color: orangered;">注意:红点代表不可修改内容</span>
 						    </div>
 						</div>
-			    	</form>
+			    	</div>
 			    </div>
 			</div>
 		</div>		

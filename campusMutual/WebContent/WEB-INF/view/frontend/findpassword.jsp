@@ -7,6 +7,7 @@
 		<link href="<%= request.getContextPath() %>/static/css/regist/style.css" rel='stylesheet' type='text/css' />
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<script type="text/javascript" src="<%= request.getContextPath() %>/static/js/jquery-2.1.0.js"></script>
+		<script src="<%= request.getContextPath() %>/static/layui/layui.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript" src="<%= request.getContextPath() %>/static/js/front/findpassword.js"></script>
 	</head>
 

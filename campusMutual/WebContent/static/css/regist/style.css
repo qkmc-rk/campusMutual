@@ -118,7 +118,7 @@ body{
 	width: 44%;
 	font-size: 1.1em;
 	margin: 18px 0px;
-	color: #666666;
+	color: #009688;
 	float: left;
 	cursor: pointer;
 	font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -145,7 +145,7 @@ body{
 	font-size: 1em;
 	margin: 18px 0px;
 	border:none;
-	color: #666666;
+	color: #009688;
 	cursor: pointer;
 	background: none;
 	float: left;

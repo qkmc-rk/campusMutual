@@ -83,7 +83,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	//事务
 	@Transactional
-	public boolean register(User user) {
+	public boolean register(User user,UserPrimInfo userPrimInfo,UserQuestion userQuestion) {
 		//首先创建一个用户记录
 		try {
 			userDao.add(user);
@@ -94,16 +94,13 @@ public class UserServiceImpl implements UserService {
 			return false;
 		}
 		//接着创建用户基础信息,用户头像记录,用户密保信息,用户Token信息
-		UserPrimInfo userPrimInfo = new UserPrimInfo();
 		//其他信息默认为空
 		userPrimInfo.setUserid(user.getId());
-		userPrimInfo.setNeckname("无名");
 		
 		UserPortrait userPortrait = new UserPortrait();
 		userPortrait.setUserid(user.getId());
 		
 		
-		UserQuestion userQuestion = new UserQuestion();
 		userQuestion.setUserid(user.getId());
 		
 		UserToken userToken = new UserToken();

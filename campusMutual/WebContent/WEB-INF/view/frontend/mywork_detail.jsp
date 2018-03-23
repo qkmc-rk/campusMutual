@@ -26,7 +26,7 @@
 			<!--导航栏-->
 			<ul class="layui-nav" layui-filter="">
 				<li class="layui-nav-item logo">
-					<h2>最新发布 - 大学生校园互助平台</h2>
+					<h2>任务详情- 大学生校园互助平台</h2>
 				</li>
 				<!--页面链接-->
 				<li class="layui-nav-item"><a href="publish">发布信息</a></li>
@@ -48,43 +48,26 @@
 				<div class="site-title">
 					<fieldset>
 						<legend>
-							<a name="use" style="text-decoration: none; color: gainsboro;">最新发布任务</a>
+							<a name="use" style="text-decoration: none; color: gainsboro;">任务详情</a>
 						</legend>
 					</fieldset>
 				</div>
 				<div class="site-text site-block mypublish-block">
 					<!--基础信息内容-->
-					<c:forEach items="${helpInfoList }" var="helpInfo" varStatus="status">
-						<div class="layui-elem-quote mypublish1">
-							<p><i style="color: red;">${helpInfo.title }</i> | 创建时间:<b style="color:#555555"><fmt:formatDate value="${helpInfo.crettime }" pattern="yyyy-MM-dd"/></b> | 截止时间:<b style="color:#555555"><jsp:setProperty name="dateValue" property="time" value="${helpInfo.timeout }"/><fmt:formatDate value="${dateValue }" pattern="yyyy-MM-dd"/></b> | 赏金<b>${helpInfo.reward }</b></p>
-							<p>[
-								<a href="work_detail?infoid=${helpInfo.id }">查看</a>]</p>
-						</div>
-					</c:forEach>
-					<!--分页-->
-					<!-- <nav aria-label="Page navigation">
-					  <ul class="pagination">
-					    <li>
-					      <a href="#" aria-label="Previous">
-					        <span aria-hidden="true">&laquo;</span>
-					      </a>
-					    </li>
-					    <li><a href="#">1</a></li>
-					    <li><a href="#">2</a></li>
-					    <li><a href="#">3</a></li>
-					    <li><a href="#">4</a></li>
-					    <li><a href="#">5</a></li>
-					    <li>
-					      <a href="#" aria-label="Next">
-					        <span aria-hidden="true">&raquo;</span>
-					      </a>
-					    </li>
-					  </ul>
-					</nav> -->
-					<!--//分页-->
+					<div class="content">
+						<h1 style="width: 100%; text-align: center;">${helpInfo.title }<small> - 备注:${helpInfo.tip }</small></h1>
+						<hr />
+						<h2 style="width: 100%; text-align: center;">赏金: <big style="color: red;">${helpInfo.reward }</big>元</h2>
+						<hr />
+						<p style="text-align: center;">${helpInfo.content }</p>
+						<hr />
+						<p>创建时间:<b style="color:#555555"><fmt:formatDate value="${helpInfo.crettime }" pattern="yyyy-MM-dd"/></b> | 截止时间:<b style="color:#555555"><jsp:setProperty name="dateValue" property="time" value="${helpInfo.timeout }"/><fmt:formatDate value="${dateValue }" pattern="yyyy-MM-dd"/></b></p>
+						<h3 style="display: inline-block;">联系电话<big><a style="color: red;">
+							${userPrimInfo.userphone }
+							</a></big></h3>
+					</div>
 				</div>
 			</div>
 		</div>
 	</body>
-
 </html>

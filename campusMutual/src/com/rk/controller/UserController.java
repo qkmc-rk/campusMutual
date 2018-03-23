@@ -226,7 +226,7 @@ public class UserController {
 	 * @param session
 	 * @return
 	 */
-	@RequestMapping("mywork")
+	@RequestMapping("/mywork")
 	public ModelAndView mywork(HttpSession session) {
 		ModelAndView mdv = new ModelAndView();
 		User user = (User)session.getAttribute("user");
@@ -234,6 +234,8 @@ public class UserController {
 		UserPrimInfo userPrimInfo = userService.getUserPrimInfo(userid);
 		List<HelpInfo> list = null;
 		List<HelpInfo> listafter = new ArrayList<>();
+		List<HelpState> statelist = new ArrayList<>();
+		HelpState helpState = null;
 		if(userPrimInfo != null) {
 			mdv.addObject("userPrimInfo", userPrimInfo);
 			list = taskService.findAll();
@@ -241,6 +243,9 @@ public class UserController {
 				Integer receiverid = taskService.findByInfoId(helpInfo.getId()).getReceiverid();
 				if(receiverid != null && receiverid.intValue() == userid.intValue()) {
 					listafter.add(helpInfo);
+					//获取state
+					helpState = taskService.findByInfoId(helpInfo.getId());
+					statelist.add(helpState);
 				}
 			}
 			System.out.println("[LOG][/mywork]-->helpInfoList" + listafter);
@@ -248,6 +253,7 @@ public class UserController {
 		mdv.addObject("userPrimInfo", userPrimInfo);
 		mdv.addObject("user", user);
 		mdv.addObject("helpInfoList", listafter);
+		mdv.addObject("helpStateList", statelist);
 		mdv.setViewName("/frontend/mywork");
 		return mdv;
 	}
@@ -305,6 +311,31 @@ public class UserController {
 		
 	}
 	
+	@RequestMapping("/mywork_detail")
+	public ModelAndView mywork_detail(HttpSession session,Integer infoid) {
+		ModelAndView mdv = new ModelAndView();
+		User user = (User)session.getAttribute("user");
+		//获取userid
+		
+		//获取info,判断是否是当前登录用户
+		HelpInfo helpInfo = taskService.findHelpInfoById(infoid);
+		if(helpInfo != null) {
+			HelpState helpState = taskService.findByInfoId(helpInfo.getId());
+			UserPrimInfo userPrimInfo = userService.getUserPrimInfo(user.getId());
+			//防止数据
+			mdv.addObject("helpInfo",helpInfo);
+			mdv.addObject("helpState",helpState);
+			mdv.addObject("user",user);
+			mdv.addObject("userPrimInfo",userPrimInfo);
+			mdv.setViewName("/frontend/mywork_detail");
+		}else {
+			//非法访问
+			mdv.addObject("msg", "你为什么要非法访问?!很好玩吗???");
+			mdv.setViewName("/error");
+		}
+		return mdv;
+	}
+	
 	/**
 	 * 写一个注册功能
 	 */
@@ -323,18 +354,45 @@ public class UserController {
 			@RequestParam("lastname")String lastname,
 			@RequestParam("stuid")Integer stuid,
 			@RequestParam("account")String account,
-			@RequestParam("password")String password) {
+			@RequestParam("password")String password,
+			@RequestParam("usermail")String usermail,
+			@RequestParam("question1")String question1,
+			@RequestParam("answer1")String answer1,
+			@RequestParam("question2")String question2,
+			@RequestParam("answer2")String answer2,
+			@RequestParam("question3")String question3,
+			@RequestParam("answer3")String answer3) {
 		System.out.println("注册");
 		
 		//首先判空
 		if(firstname == null || firstname.equals("") || lastname == null || lastname.equals("") || stuid == null || account == null || account.equals("") || password == null || password.equals(""))
 			return JsonResult.RS_FALSE;
+		if(usermail == null || question1.equals("") || answer1 == null || 
+				question2.equals("") || answer2 == null || question3 == null || 
+				answer3.equals("") || question1 == null || usermail.equals("") || answer1.equals("") || 
+				question2 == null || answer2.equals("") || question3 == null || answer3 == null)
+			return JsonResult.RS_FALSE;
 		//先注册,然后生成priminfo记录,portrait记录,token记录,question记录,certif记录
+		
 		User user = new User();
+		UserPrimInfo userPrimInfo = new UserPrimInfo();
+		UserQuestion userQuestion = new UserQuestion();
+		
 		user.setStuid(stuid);
 		user.setAccount(account);
 		user.setPassword(password);
-		if(userService.register(user))
+		
+		userPrimInfo.setNeckname(firstname + lastname);
+		userPrimInfo.setUsermail(usermail);
+		
+		userQuestion.setQuestion1(question1);
+		userQuestion.setAnswer1(answer1);
+		userQuestion.setQuestion2(question2);
+		userQuestion.setAnswer2(answer2);
+		userQuestion.setQuestion3(question3);
+		userQuestion.setAnswer3(answer3);
+		//进去之后还要设置prim和question的userid
+		if(userService.register(user,userPrimInfo,userQuestion))
 			return JsonResult.RS_TRUE;
 		return JsonResult.RS_FALSE;
 	}
@@ -429,6 +487,23 @@ public class UserController {
 			}
 		}else
 			return JsonResult.RS_FALSE;
+	}
+	
+	/**
+	 * 去实名认证页面
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping("/certify")
+	public ModelAndView toCertify(HttpSession session) {
+		ModelAndView mdv = new ModelAndView();
+		User user = (User)session.getAttribute("user");
+		Integer userid = user.getId();
+		UserPrimInfo userPrimInfo = userService.getUserPrimInfo(userid);
+		mdv.addObject("user", user);
+		mdv.addObject("userPrimInfo", userPrimInfo);
+		mdv.setViewName("/frontend/usercertify");
+		return mdv;
 	}
 	
 	/**

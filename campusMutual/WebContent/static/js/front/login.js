@@ -17,13 +17,33 @@ function ajaxLogin(){
 		success:function(data){
 			var obj = JSON.parse(data);
 			if(obj.result == 'false'){
-				alert("登录失败");
+				loginfailed();
 			}else{
+				loginsuccess();
 				window.location.href = "user/index";
 			}
 		},
 		error:function(){
-			alert("没有这个用户!");
+			nouser();
 		}
+	});
+}
+
+function loginfailed(){
+	layui.use('layer',function(){
+		 var layer = layui.layer;
+		 layer.msg('登录失败');
+	});
+}
+function loginsuccess(){
+	layui.use('layer',function(){
+		 var layer = layui.layer;
+		 layer.msg('登录成功');
+	});
+}
+function nouser(){
+	layui.use('layer',function(){
+		 var layer = layui.layer;
+		 layer.msg('没有这个用户');
 	});
 }

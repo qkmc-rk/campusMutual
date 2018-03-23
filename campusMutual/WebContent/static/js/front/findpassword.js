@@ -32,7 +32,7 @@ function ajaxGetQ(){
 			}
 		},
 		error:function(){
-			alert("获取问题失败!");
+			noquestion();
 		}
 	});
 }
@@ -58,13 +58,33 @@ function ajaxResetPassword(){
 		success:function(data){
 			var obj = JSON.parse(data);
 			if(obj != null && obj.result == 'true'){
-				alert("密码已经重置,请打开个人信息中的邮件查看新的密码!");
-				window.close();
+				findpsdsuccess();
+			}else{
+				findpsdfailed();
 			}
 		},
 		error:function(){
-			alert("重置密码失败!!!!");
+			findpsdfailed();
 		}
 	});
 	
+}
+
+function findpsdsuccess(){
+	layui.use('layer',function(){
+		 var layer = layui.layer;
+		 layer.msg('密码已经重置,请打开个人信息中的邮件查看新的密码!');
+	});
+}
+function findpsdfailed(){
+	layui.use('layer',function(){
+		 var layer = layui.layer;
+		 layer.msg('重置密码失败!!!!');
+	});
+}
+function noquestion(){
+	layui.use('layer',function(){
+		 var layer = layui.layer;
+		 layer.msg('获取密保问题时出现问题!');
+	});
 }

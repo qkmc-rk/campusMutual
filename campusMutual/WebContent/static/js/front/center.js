@@ -10,7 +10,7 @@ function ajaxSavePrim(){
 	var dormnum = $("input[name=dormnum]").val();
 	var dormaddr = $("input[name=dormaddr]").val();
 	var homeaddr = $("input[name=homeaddr]").val();
-	//alert(userid + "  " + neckname + "  " + usermail + "  " + userphone + "  " + sex + "  " + age + "  " + qq + "  " + dormnum + "  " + dormaddr + " " + homeaddr);
+	//layui.alert(userid + "  " + neckname + "  " + usermail + "  " + userphone + "  " + sex + "  " + age + "  " + qq + "  " + dormnum + "  " + dormaddr + " " + homeaddr);
 	
 	//发送ajax请求进行登录
 	$.ajax({
@@ -33,13 +33,13 @@ function ajaxSavePrim(){
 		success:function(data){
 			var obj = JSON.parse(data);
 			if(obj.result == 'false'){
-				alert("更新信息失败!");
+				updatefailed();
 			}else{
-				alert("更新信息成功!");
+				updatesuccess();
 			}
 		},
 		error:function(){
-			alert("服务器error:更新信息失败!");
+			serviceerror();
 		}
 	});
 }
@@ -57,7 +57,7 @@ function ajaxSaveSafe(){
 	var question3 = $("input[name=question3]").val();
 	var answer3 = $("input[name=answer3]").val();
 	
-	//alert(userid + "  " + account + "  " + token + "  " + password + "  " + question1 + "  " + answer1 + "  " + question2 + "  " + answer2 + "  " + question3 + " " + answer3);
+	//layui.alert(userid + "  " + account + "  " + token + "  " + password + "  " + question1 + "  " + answer1 + "  " + question2 + "  " + answer2 + "  " + question3 + " " + answer3);
 	
 	//发送ajax请求进行登录
 	$.ajax({
@@ -78,13 +78,32 @@ function ajaxSaveSafe(){
 		success:function(data){
 			var obj = JSON.parse(data);
 			if(obj.result == 'false'){
-				alert("更新失败!");
+				updatefailed();
 			}else{
-				alert("更新成功!");
+				updatesuccess();
 			}
 		},
 		error:function(){
-			alert("服务器error:更新失败!");
+			serviceerror();
 		}
+	});
+}
+
+function updatefailed(){
+	layui.use('layer',function(){
+		 var layer = layui.layer;
+		 layer.msg('更新失败');
+	});
+}
+function updatesuccess(){
+	layui.use('layer',function(){
+		 var layer = layui.layer;
+		 layer.msg('更新成功');
+	});
+}
+function serviceerror(){
+	layui.use('layer',function(){
+		 var layer = layui.layer;
+		 layer.msg('服务器错误更新失败');
 	});
 }

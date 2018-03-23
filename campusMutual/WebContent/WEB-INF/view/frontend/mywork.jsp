@@ -20,6 +20,7 @@
 		<script src="<%=request.getContextPath()%>/static/layui/layui.js" type="text/javascript" charset="utf-8"></script>
 		<script src="<%=request.getContextPath()%>/static/js/wangEditor.js" type="text/javascript" charset="utf-8"></script>
 		<script src="<%=request.getContextPath()%>/static/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>	
+		<script src="<%=request.getContextPath()%>/static/js/front/mywork.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 
 	<body>
@@ -55,14 +56,29 @@
 				</div>
 				
 				<div class="site-text site-block mypublish-block">
+					<input type="text" id="rootPath" value="<%= request.getContextPath() %>" style="display: none;">
 					<!--基础信息内容-->
 					<c:forEach items="${helpInfoList }" var="helpInfo" varStatus="status">
 						<div class="layui-elem-quote mypublish1">
-							<p><i style="color: red;">${helpInfo.title }</i> |创建时间:<b style="color:#555555"><fmt:formatDate value="${helpInfo.crettime }" pattern="yyyy-MM-dd"/></b> | 截止时间:<b style="color:#555555"><jsp:setProperty name="dateValue" property="time" value="${helpInfo.timeout }"/><fmt:formatDate value="${dateValue }" pattern="yyyy-MM-dd"/></b> | 赏金<b>${helpInfo.reward }</b></p>
-							<p>[
-								<a href="">提交成果</a>] | [
-								<a href="">联系发布者</a>] | [
-								<a href="">查看</a>]</p>
+							<p>
+								<i style="color: red;">${helpInfo.title }</i> |创建时间:<b style="color:#555555"><fmt:formatDate value="${helpInfo.crettime }" pattern="yyyy-MM-dd"/></b> | 截止时间:<b style="color:#555555"><jsp:setProperty name="dateValue" property="time" value="${helpInfo.timeout }"/><fmt:formatDate value="${dateValue }" pattern="yyyy-MM-dd"/></b> | 赏金<b>${helpInfo.reward }</b>
+								<c:if test="${helpStateList[status.index].achieved == 1 }">
+									<big style="color:green"> 已完成</big>
+								</c:if>
+							</p>
+							<c:if test="${helpStateList[status.index].achieved == 1 }">
+								<p>[
+									<a href="mywork_detail?infoid=${helpInfo.id }">联系发布者</a>] | [
+									<a href="mywork_detail?infoid=${helpInfo.id }">查看</a>]
+								</p>
+							</c:if>
+							<c:if test="${helpStateList[status.index].achieved == 0 }">
+								<p>[
+									<a href="javascript:void(0);" onclick="finish(this)" title="${helpInfo.id }">提交成果</a>] | [
+									<a href="mywork_detail?infoid=${helpInfo.id }">联系发布者</a>] | [
+									<a href="mywork_detail?infoid=${helpInfo.id }">查看</a>]
+								</p>
+							</c:if>
 						</div>
 					</c:forEach>
 					

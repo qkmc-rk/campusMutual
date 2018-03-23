@@ -7,11 +7,14 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta charset="UTF-8" />
 		<link href="<%= request.getContextPath() %>/static/css/login/style.css" rel='stylesheet' type='text/css' />
+		<script src="<%= request.getContextPath() %>/static/js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="<%= request.getContextPath() %>/static/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+		<script src="<%= request.getContextPath() %>/static/js/front/login.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 
 	<body>
-		<script src="<%= request.getContextPath() %>/static/js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
-		<script src="<%= request.getContextPath() %>/static/js/front/login.js" type="text/javascript" charset="utf-8"></script>
+		
+		
 		<!--SIGN UP-->
 		<h1>大学生校园互助平台  - 登录</h1>
 		<div class="login-form">
@@ -43,6 +46,7 @@
 				<a href="mailto:qkmc@outlook.com">qkmc@outlook.com</a>
 			</p>
 		</div>
+		<button type="button" value="text" onclick="layuitest()"></button>
 
 	</body>
 

@@ -12,7 +12,9 @@
 
 	<body>
 		<script src="<%= request.getContextPath() %>/static/js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="<%= request.getContextPath() %>/static/layui/layui.js" type="text/javascript" charset="utf-8"></script>
 		<script src="<%= request.getContextPath() %>/static/js/front/regist.js" type="text/javascript" charset="utf-8"></script>
+		
 		<div class="main">
 			<h2>注册 - 大学生校园互助平台</h2>
 			<form>
@@ -22,8 +24,18 @@
 				</div>
 				<div class="clear"> </div>
 				<div class="lable-2">
-					<input type="text" id="stuid" class="text" value="" placeholder="学号"  >
+					<input type="text" id="stuid" class="text" value="" placeholder="学号(数字)"  >
+					<input type="text" id="usermail" class="text" value="" placeholder="邮箱(便于找回密码,请认真填写)"  >
 					<input type="text" id="account" class="text" value="" placeholder="账号"  >
+					
+					<input type="text" id="question1" class="text" value="" placeholder="密保问题1"  >
+					<input type="text" id="answer1" class="text" value="" placeholder="密保问题1-答案"  >
+					<input type="text" id="question2" class="text" value="" placeholder="密保问题2"  >
+					<input type="text" id="answer2" class="text" value="" placeholder="密保问题2-答案"  >
+					<input type="text" id="question3" class="text" value="" placeholder="密保问题3"  >
+					<input type="text" id="answer3" class="text" value="" placeholder="密保问题3-答案"  >
+					
+					
 					<input type="password" id="password" class="text" value="" placeholder="密码"  >
 					<input type="password" id="password2" class="text" value="" placeholder="确认密码"  >
 				</div>

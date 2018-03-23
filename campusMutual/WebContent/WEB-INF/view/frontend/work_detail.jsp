@@ -18,7 +18,8 @@
 		<script src="<%=request.getContextPath()%>/static/js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
 		<script src="<%=request.getContextPath()%>/static/layui/layui.js" type="text/javascript" charset="utf-8"></script>
 		<script src="<%=request.getContextPath()%>/static/js/wangEditor.js" type="text/javascript" charset="utf-8"></script>
-		<script src="<%=request.getContextPath()%>/static/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>	
+		<script src="<%=request.getContextPath()%>/static/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+		<script src="<%=request.getContextPath()%>/static/js/front/work_detail.js" type="text/javascript" charset="utf-8"></script>	
 	</head>
 
 	<body>
@@ -55,6 +56,8 @@
 				<div class="site-text site-block mypublish-block">
 					<!--基础信息内容-->
 					<div class="content">
+						<input type="text" id="infoid" value="${helpInfo.id }" style="display: none;">
+						<input type="text" id="rootPath" value="<%= request.getContextPath() %>" style="display: none;">
 						<h1 style="width: 100%; text-align: center;">${helpInfo.title }<small> - 备注:${helpInfo.tip }</small></h1>
 						<hr />
 						<h2 style="width: 100%; text-align: center;">赏金: <big style="color: red;">${helpInfo.reward }</big>元</h2>
@@ -67,7 +70,7 @@
 							<c:if test="${helpState.receiverid != user.id }">***********</c:if>
 							</a></big></h3>[<a style="display: inline-block;" href="">接收任务以查看完整联系方式</a>]
 					</div>
-					
+					<button class="layui-btn layui-btn-lg" onclick="receive()">接受任务</button>
 				</div>
 			</div>
 		</div>

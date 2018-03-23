@@ -47,10 +47,10 @@ public class TaskInterceptor implements HandlerInterceptor{
 		HttpSession session = request.getSession();
 		User user = (User)session.getAttribute("user");
 		System.out.println("[LOG]ªÒ»°session" + user + "  " + user.getId());
-		if(request.getParameter("userid") != null && user != null && user.getId() != null && String.valueOf(user.getId()).equals(request.getParameter("userid")))
+		if(user != null && user.getId() != null)
 			return true;
-		else
+		else {
 			return false;
+		}
 	}
-
 }

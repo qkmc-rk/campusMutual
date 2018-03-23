@@ -48,4 +48,9 @@ public class HelpState {
 	public void setAchieved(Integer achieved) {
 		this.achieved = achieved;
 	}
+	@Override
+	public String toString() {
+		return "HelpState [id=" + id + ", infoid=" + infoid + ", timeout=" + timeout + ", received=" + received
+				+ ", receiverid=" + receiverid + ", achieved=" + achieved + "]";
+	}
 }

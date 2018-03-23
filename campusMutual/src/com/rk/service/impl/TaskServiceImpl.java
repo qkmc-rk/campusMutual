@@ -5,11 +5,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.rk.dao.HelpInfoDao;
 import com.rk.dao.HelpStateDao;
+import com.rk.dao.UserCertifDao;
 import com.rk.entity.HelpInfo;
 import com.rk.entity.HelpState;
+import com.rk.entity.UserCertif;
 import com.rk.service.TaskService;
 
 /** 
@@ -43,6 +46,9 @@ public class TaskServiceImpl implements TaskService {
 	
 	@Autowired
 	HelpStateDao helpStateDao;
+	
+	@Autowired
+	UserCertifDao userCertifDao;
 	
 	@Override
 	public Integer saveOneInfo(HelpInfo helpInfo) {
@@ -122,5 +128,44 @@ public class TaskServiceImpl implements TaskService {
 			return null;
 		}
 		return helpInfo;
+	}
+
+	@Override
+	@Transactional
+	public boolean deleteHelpInfoByInfoId(Integer infoid) {
+		try {
+			helpStateDao.deleteByInfoId(infoid);
+			helpInfoDao.deleteById(infoid);
+			return true;
+		} catch (Exception e) {
+			System.out.println("[LOG]É¾³ıÊ§°Üinfoid" + infoid);
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	@Override
+	public boolean UpdateHelpInfo(HelpInfo helpInfo) {
+		if(helpInfoDao.update(helpInfo) > 0)
+			return true;
+		return false;
+	}
+
+	@Override
+	public boolean UpdateHelpState(HelpState helpState) {
+		if(helpStateDao.update(helpState) > 0)
+			return true;
+		return false;
+	}
+
+	@Override
+	public boolean usercertification(Integer userid, String cardname) {
+		
+		UserCertif userCertif = userCertifDao.selectByUserId(userid);
+		userCertif.setCardpath(cardname);
+		
+		if(userCertifDao.update(userCertif) > 0) 
+			return true;
+		return false;
 	}
 }

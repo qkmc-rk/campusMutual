@@ -79,13 +79,13 @@
 							<p>
 							<!--已完成!  -->
 							<c:if test="${helpStateList[status.index].achieved > 0}">
-								[<a href="">查看</a>]
+								[<a href="my_detail?infoid=${helpInfo.id }">查看</a>]
 							</c:if>
 							<!--未完成  -->
 							<c:if test="${helpStateList[status.index].achieved < 1}">
 								<!--已被接受  -->
 								<c:if test="${helpStateList[status.index].received == 1}">
-									[<a href="">查看</a>]
+									[<a href="my_detail?infoid=${helpInfo.id }">查看</a>]
 								</c:if>
 								<!--未被接收  -->
 								<c:if test="${helpStateList[status.index].received == 0}">
@@ -93,7 +93,7 @@
 									<a href="">删除</a>] | [
 									<a href="">更改赏金</a>] | [
 									<a href="">更改时间</a>] | [
-									<a href="">查看</a>]
+									<a href="my_detail?infoid=${helpInfo.id }">查看</a>]
 								</c:if>
 							</c:if>
 							</p>

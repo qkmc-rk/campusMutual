@@ -27,7 +27,7 @@ public interface UserService {
 	 * @param user 用户注册信息
 	 * @return 注册是否成功
 	 */
-	boolean register(User user);
+	boolean register(User user,UserPrimInfo userPrimInfo,UserQuestion userQuestion);
 	
 	UserCertif getUserCertif(Integer userid);
 	UserPortrait getUserPortrait(Integer userid);

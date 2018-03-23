@@ -13,12 +13,12 @@ function ajaxPublish() {
 	var userid = $("input[name=userid]").val();
 
 	var content = editor.txt.html();
-	alert(title + timeout + tip + reward + content + userid);
+	//alert(title + timeout + tip + reward + content + userid);
 
 	if(title == null || timeout == null || tip == null || 
 			reward == null || userid == null || title == '' ||
 			timeout == '' || tip == '' || reward == '' || userid == ''){
-		alert("请填写完整!");
+		stillNull();
 		return;
 	}
 	
@@ -40,14 +40,39 @@ function ajaxPublish() {
 		success : function(data) {
 			//var obj = JSON.parse(data);
 			if (data.result == 'false') {
-				alert("发布失败");
+				publishfailed();
 			} else {
-				alert("发布成功");
+				publishsuccess();
 				window.location.href = "index";
 			}
 		},
 		error : function() {
-			alert("服务器错误:发布失败!");
+			serviceerror();
 		}
+	});
+}
+
+function stillNull(){
+	layui.use('layer',function(){
+		 var layer = layui.layer;
+		 layer.msg('请填写完整!');
+	});
+}
+function serviceerror(){
+	layui.use('layer',function(){
+		 var layer = layui.layer;
+		 layer.msg('服务器错误');
+	});
+}
+function publishsuccess(){
+	layui.use('layer',function(){
+		 var layer = layui.layer;
+		 layer.msg('发布成功');
+	});
+}
+function publishfailed(){
+	layui.use('layer',function(){
+		 var layer = layui.layer;
+		 layer.msg('发布失败');
 	});
 }

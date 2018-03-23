@@ -5,10 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <title>大学生校园互助平台</title>
-<link rel="stylesheet" type="text/css"
+	<link rel="stylesheet" type="text/css"
 	href="<%=request.getContextPath()%>/static/layui/css/layui.css" />
-<link rel="stylesheet" type="text/css"
+	<link rel="stylesheet" type="text/css"
 	href="<%=request.getContextPath()%>/static/css/public.css" />
+	<script src="<%= request.getContextPath() %>/static/js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+	<script src="<%= request.getContextPath() %>/static/layui/layui.js" type="text/javascript" charset="utf-8"></script>
 
 </head>
 <body>
@@ -92,7 +94,7 @@
 					</div>
 				</form>
 			</div>
-			<button class="layui-btn" onclick="ajaxPublish()" style="margin-bottom: -38px;">发布任务</button>
+			<button class="layui-btn center-from-btn" onclick="ajaxPublish()" style="margin-bottom: -38px;">发布任务</button>
 		</div>
 	</div>
 	<input type="text" value="<%= request.getContextPath()%>" name="contextPath" style="display:none;">

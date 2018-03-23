@@ -51,4 +51,17 @@ public interface TaskService {
 	List<HelpInfo> findAll();
 	
 	HelpInfo findHelpInfoById(Integer infoid);
+	
+	boolean deleteHelpInfoByInfoId(Integer infoid);
+	
+	boolean UpdateHelpInfo(HelpInfo helpInfo);
+	boolean UpdateHelpState(HelpState helpState);
+	
+	/**
+	 * 用户实名认证,上传图片路径
+	 * @param userid
+	 * @param cardname
+	 * @return
+	 */
+	boolean usercertification(Integer userid,String cardname);
 }
