@@ -232,7 +232,10 @@ public class TaskController {
 		//获取userid;
 		User user = (User)session.getAttribute("user");
 		Integer userid = user.getId();
-				
+		//自己的任务不能接受
+		HelpInfo helpInfo = taskService.findHelpInfoById(infoid);
+		if(helpInfo.getUserid().intValue()  == userid.intValue()) return  JsonResult.RS_FALSE;
+		System.out.println("[LOG] 用户自己发布的任务:" + (helpInfo.getUserid().intValue()  == userid.intValue()));
 		//获取helpinfo
 		//HelpInfo helpInfo = taskService.findHelpInfoById(infoid);
 		HelpState helpState = taskService.findByInfoId(infoid);

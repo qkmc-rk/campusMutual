@@ -99,7 +99,6 @@
 					    	uploadsuccess();
 					    	setTimeout("toCenter()",2000);
 						}
-				    		
 				    }
 				    ,error: function(){
 				      //请求异常回调

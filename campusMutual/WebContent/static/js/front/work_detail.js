@@ -12,10 +12,12 @@ function receive(){
 		},
 		//根据返回值
 		success:function(data){
-			if(data.result == 'false'){
-				receivefailed();
-			}else{
+			var obj = JSON.parse(data);
+			if(obj.result == 'true'){
 				receivesuccess();
+				window.location.href='mywork';
+			}else{
+				receivefailed();
 			}
 		},
 		error:function(){
@@ -27,7 +29,7 @@ function receive(){
 function receivefailed(){
 	layui.use('layer',function(){
 		 var layer = layui.layer;
-		 layer.msg('失败了');
+		 layer.msg('失败了(注意:自己发布的项目无法自己接受)');
 	});
 }
 function receivesuccess(){
