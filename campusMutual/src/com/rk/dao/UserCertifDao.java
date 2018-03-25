@@ -1,5 +1,7 @@
 package com.rk.dao;
 
+import java.util.List;
+
 import com.rk.entity.UserCertif;
 
 public interface UserCertifDao {
@@ -16,4 +18,6 @@ public interface UserCertifDao {
 	//²é
 	UserCertif selectById(Integer id);
 	UserCertif selectByUserId(Integer userId);
+
+	List<UserCertif> selectAll();
 }

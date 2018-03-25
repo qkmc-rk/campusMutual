@@ -26,7 +26,7 @@
 			<!--导航栏-->
 			<ul class="layui-nav" layui-filter="">
 				<li class="layui-nav-item logo">
-					<h2><a href="index">我的发布 - 大学生校园互助平台</a></h2>
+					<h2>我的 - 大学生校园互助平台</h2>
 				</li>
 				<!--页面链接-->
 				<li class="layui-nav-item"><a href="publish">发布信息</a></li>
@@ -34,12 +34,11 @@
 				<li class="layui-nav-item"><a href="mywork">我的任务</a></li>
 				<li class="layui-nav-item"><a href="works">最新发布</a></li>
 				<!--//页面链接-->
-				<li class="layui-nav-item">
-					<a href="center">个人中心<span class="layui-badge-dot"></span></a>
-				</li>
-				<li class="layui-nav-item">
-					<a href="center"><img src="<%=request.getContextPath()%>/static/img/login/avtar.png" class="layui-nav-img" />${userPrimInfo.neckname }</a>
-				</li>
+				<li class="layui-nav-item"><a href="center">个人中心<span
+						class="layui-badge-dot"></span></a></li>
+				<li class="layui-nav-item"><a href="center"><img
+						src="<%=request.getContextPath()%>/static/img/login/avtar.png"
+						class="layui-nav-img" />${userPrimInfo.neckname }</a></li>
 			</ul>
 			<!--//导航栏-->
 			<!--主要内容-->

@@ -1,5 +1,10 @@
 package com.rk.dao.impl;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -57,6 +62,32 @@ public class UserCertifDaoImpl implements UserCertifDao {
 		RowMapper<UserCertif> rowMapper = new BeanPropertyRowMapper<>(UserCertif.class);
 		UserCertif userCertif = jdbct.queryForObject(sql, rowMapper, userId);
 		return userCertif;
+	}
+
+	@Override
+	public List<UserCertif> selectAll() {
+		String sql = "select * from t_usercertif";
+		
+		RowMapper<List<UserCertif>> rowMapper = new RowMapper<List<UserCertif>>() {
+
+			@Override
+			public List<UserCertif> mapRow(ResultSet rs, int rowNumber) throws SQLException {
+				List<UserCertif> list = new ArrayList<UserCertif>();
+				UserCertif userCertif = null;
+				do {
+					userCertif = new UserCertif();
+					userCertif.setId(rs.getInt(1));
+					userCertif.setUserid(rs.getInt(2));
+					userCertif.setState(rs.getInt(3));
+					userCertif.setCardpath(rs.getString(4));
+					list.add(userCertif);
+				}while(rs.next());
+				return list;
+			}
+		};
+		//½Ó×ÅÖ´ÐÐ
+		List<UserCertif> list = jdbct.queryForObject(sql, rowMapper);
+		return list;
 	}
 
 }

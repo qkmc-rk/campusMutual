@@ -1,6 +1,7 @@
 package com.rk.dao.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -26,7 +27,13 @@ public class AdminDaoImpl implements AdminDao {
 	public Admin selectByUserId(Integer userId) {
 		String sql = "select * from t_admin where userid=?";
 		RowMapper<Admin> rowMapper = new BeanPropertyRowMapper<>(Admin.class);
-		Admin admin = jdbct.queryForObject(sql, rowMapper, userId);
+		Admin admin = null;
+		try {
+			admin = jdbct.queryForObject(sql, rowMapper, userId);
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+			return null;
+		}
 		return admin;
 	}
 

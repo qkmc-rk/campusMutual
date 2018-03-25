@@ -208,11 +208,12 @@ public class UserController {
 			mdv.addObject("userPrimInfo", userPrimInfo);
 			//然后获取所有的work.
 			list = taskService.findAll();
-			for (HelpInfo helpInfo : list) {
-				if(taskService.findByInfoId(helpInfo.getId()).getReceived() != 1) {
-					listafter.add(helpInfo);
+			if(list != null)
+				for (HelpInfo helpInfo : list) {
+					if(taskService.findByInfoId(helpInfo.getId()).getReceived() != 1) {
+						listafter.add(helpInfo);
+					}
 				}
-			}
 		}
 		mdv.addObject("userPrimInfo", userPrimInfo);
 		mdv.addObject("user", user);
@@ -239,15 +240,16 @@ public class UserController {
 		if(userPrimInfo != null) {
 			mdv.addObject("userPrimInfo", userPrimInfo);
 			list = taskService.findAll();
-			for (HelpInfo helpInfo : list) {
-				Integer receiverid = taskService.findByInfoId(helpInfo.getId()).getReceiverid();
-				if(receiverid != null && receiverid.intValue() == userid.intValue()) {
-					listafter.add(helpInfo);
-					//获取state
-					helpState = taskService.findByInfoId(helpInfo.getId());
-					statelist.add(helpState);
+			if(list != null)
+				for (HelpInfo helpInfo : list) {
+					Integer receiverid = taskService.findByInfoId(helpInfo.getId()).getReceiverid();
+					if(receiverid != null && receiverid.intValue() == userid.intValue()) {
+						listafter.add(helpInfo);
+						//获取state
+						helpState = taskService.findByInfoId(helpInfo.getId());
+						statelist.add(helpState);
+					}
 				}
-			}
 			System.out.println("[LOG][/mywork]-->helpInfoList" + listafter);
 		}
 		mdv.addObject("userPrimInfo", userPrimInfo);

@@ -44,8 +44,7 @@
 	<mvc:view-controller path="/regpage" view-name="/frontend/regist"/>
 	<mvc:view-controller path="/logpage" view-name="/frontend/login"/>
 	<mvc:view-controller path="/forgetpage" view-name="/frontend/findpassword"/>
-	<!-- <mvc:view-controller path="/about" view-name="/frontend/about"/>
-	<mvc:view-controller path="/article" view-name="/frontend/article"/> -->
+	<mvc:view-controller path="/admin/loginpage" view-name="/backend/login"/>
 	<!--配置拦截器用于处理管理员登录  -->
  	<mvc:interceptors>
 		<mvc:interceptor>
@@ -61,9 +60,11 @@
 			<mvc:mapping path="/task/**"/>
 			<bean class="com.rk.interceptor.TaskInterceptor"></bean>
 		</mvc:interceptor>
-		<!-- <mvc:interceptor>
-			<mvc:mapping path="/article_show"/>
-			<bean class="com.szwh.interceptor.ClickInteceptor"></bean>
-		</mvc:interceptor> -->
+		<mvc:interceptor>
+			<mvc:mapping path="/admin/index"/>
+			<mvc:mapping path="/admin/certify"/>
+			<mvc:mapping path="/admin/helpinfo"/>
+			<bean class="com.rk.interceptor.AdminPageInterceptor"></bean>
+		</mvc:interceptor>
 	</mvc:interceptors>
 </beans>
