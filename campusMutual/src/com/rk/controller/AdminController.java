@@ -197,12 +197,20 @@ public class AdminController {
 		return "/backend/index";
 	}
 	
+	/**
+	 * 去到管理员的求助信息管理页面
+	 * @return
+	 */
 	@RequestMapping("/helpinfo")
 	public String toHelpinfo() {
 
 		return "/backend/helpinfo";
 	}
 	
+	/**
+	 *去到管理员的实名管理页面
+	 * @return
+	 */
 	@RequestMapping("/certify")
 	public String toCertify() {
 		return "/backend/certify";

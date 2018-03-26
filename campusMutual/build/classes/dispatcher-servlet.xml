@@ -27,6 +27,8 @@
 	
 	<!--配置静态资源路径  -->
 	<mvc:resources location="/static/" mapping="/static/**"></mvc:resources>
+	<!--这个是管理员才能访问的静态资源目录,但是我不知道怎么加权限上去  -->
+	<mvc:resources location="/idcardimg/" mapping="/idcardimg/**"></mvc:resources>
 	<!--配置静态资源路径后会加载默认映射静态资源的default-servlet,需开启注解支持以加载requestMappingHandler等相关bean.  -->
 	<mvc:annotation-driven>
 	

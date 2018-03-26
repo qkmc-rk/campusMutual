@@ -9,13 +9,14 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+	<!--读取配置文件,一个xml只允许有一个property-placeholder  -->
+	<context:property-placeholder ignore-unresolvable="true" location="classpath:dbcp.properties,classpath:mailServer.properties"/>
 	
 	<!--配置自动扫描支持 不扫描controller  -->
 	<context:component-scan base-package="com.rk">
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
 	<!--配置数据源  -->
-	<context:property-placeholder location="classpath:dbcp.properties"/>
 	<bean id="dataSource"
 		class="org.apache.commons.dbcp2.BasicDataSource">
 		<property name="username" value="${jdbc.username}"></property>
@@ -46,23 +47,24 @@
 	
 	<!--接着配置邮件发送的bean  -->
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-   		<property name="host" value="smtp.qq.com"/>
-   		<property name="port" value="587"/>
-   		<property name="protocol" value="smtp"/>
-   		<property name="username" value="1537854187@qq.com"/>
-   		<property name="password" value="mbyfwpvsuximgaai"/>
-   		<property name="defaultEncoding" value="UTF-8"/>
+   		<property name="host" value="${mail.host}"/>
+   		<property name="port" value="${mail.port}"/>
+   		<property name="protocol" value="${mail.protocol}"/>
+   		<property name="username" value="${mail.username}"/>
+   		<property name="password" value="${mail.password}"/>
+   		<property name="defaultEncoding" value="${mail.defaultEncoding}"/>
    		<property name="javaMailProperties">
    			<props>
-   				<prop key="mail.smtp.auth">true</prop>
-   				<prop key="mail.smtp.timeout">25000</prop>
+   				<prop key="mail.smtp.auth">${mail.smtp.auth}</prop>
+   				<prop key="mail.smtp.timeout">${mail.smtp.timeout}</prop>
    			</props>
    		</property>
 	</bean>
+	
 	<!--配置一个邮件发送的消息模板  -->
 	<bean id="templateMessage" class="org.springframework.mail.SimpleMailMessage">
-	    <property name="from" value="1537854187@qq.com"/>
-	    <property name="subject" value="Password Reset,No reply!"/>
+	    <property name="from" value="${mail.username}"/>
+	    <property name="subject" value="${mail.subject}"/>
 	</bean>
 	
 	<!--配置一个密码重置邮件通知的bean  -->
@@ -70,6 +72,7 @@
 		<property name="mailSender" ref="mailSender"></property>
 		<property name="simpleMailMessage" ref="templateMessage"></property>
 	</bean>
+	
 </beans>
 
 

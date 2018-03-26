@@ -24,7 +24,7 @@
 	  <div class="header-home">
 		<div class="fixed-header">
 			<div class="logo wow bounceInDown" data-wow-delay="0.4s">
-				<a href="user/index">
+				<a href="logpage">
 		          <span class="secondary">campus</span>
 		          <span class="main">MUTUAL</span>
 		        </a>

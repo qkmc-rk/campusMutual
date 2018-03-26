@@ -89,39 +89,164 @@
 								<!--未被接收  -->
 								<c:if test="${helpStateList[status.index].received == 0}">
 									[
-									<a href="">删除</a>] | [
-									<a href="">更改赏金</a>] | [
-									<a href="">更改时间</a>] | [
+									<a href="javascript:delete_(${helpInfo.id });">删除</a>] | [
+									<a href="javascript:showchangeMoney(${helpInfo.id });">更改赏金</a>] | [
+									<a href="javascript:showchangeDate(${helpInfo.id });">更改时间</a>] | [
 									<a href="my_detail?infoid=${helpInfo.id }">查看</a>]
 								</c:if>
 							</c:if>
 							</p>
 						</div>
 					</c:forEach>
-					<!--分页 未实现-->
-					<!-- <nav aria-label="Page navigation">
-					  <ul class="pagination">
-					    <li>
-					      <a href="#" aria-label="Previous">
-					        <span aria-hidden="true">&laquo;</span>
-					      </a>
-					    </li>
-					    <li><a href="#">1</a></li>
-					    <li><a href="#">2</a></li>
-					    <li><a href="#">3</a></li>
-					    <li><a href="#">4</a></li>
-					    <li><a href="#">5</a></li>
-					    <li>
-					      <a href="#" aria-label="Next">
-					        <span aria-hidden="true">&raquo;</span>
-					      </a>
-					    </li>
-					  </ul>
-					</nav> -->
-					<!--//分页-->
 				</div>
 			</div>
 		</div>
+		<!-- modal -->
+		<div style="display:none">
+			<div id="chosseMoney">
+				<input type="number" id="mymoney" name="money" placeholder="请输入赏金" class="layui-input">
+			</div>
+			<div id="chosseDate">
+				<input type="text" name="mydate" class="layui-input" id="mydate">
+				<script>
+					layui.use('laydate', function(){
+					  var laydate = layui.laydate;
+					  
+					  //执行一个laydate实例
+					  laydate.render({
+					    elem: '#mydate' //指定元素
+					  });
+					});
+				</script>
+			</div>
+		</div>
+		<!--modal结束  -->
+		<!-- js -->
+		<script type="text/javascript">
+		
+			function delete_(objs){
+				var infoid = objs;
+
+				$.ajax({
+					type:"post",
+					url:'<%= request.getContextPath() %>/task/' + 'delete',
+					async:true,
+					data:{
+						'infoid':infoid
+					},
+					//根据返回值
+					success:function(data){
+						var obj = JSON.parse(data);
+						if(obj != null && obj.result == 'true' || data.result == 'true'){
+							succ();
+							setInterval(function() {
+								window.location.reload();
+							}, 500)
+						}else if(obj == null || data.result == 'false'){
+							fail();
+						}
+					},
+					error:function(){
+						fail();
+					}
+				});
+			}
+			/* 更改赏金 */
+			
+			function changereward(objs){
+				var infoid = objs;
+				$.ajax({
+					type:"post",
+					url:"<%= request.getContextPath() %>/task/changereward",
+					async:true,
+					data:{
+						'infoid':infoid,
+						'reward':$('#layer-money').val()
+					},
+					//根据返回值
+					success:function(data){
+						var obj = JSON.parse(data);
+						if(obj != null && obj.result == 'true'){
+							succ();
+						}else{
+							fail();
+						}
+					},
+					error:function(){
+						fail();
+					}
+				});
+			}
+			
+			function changetime(objs){
+				
+				alert($('#layer-date').val());
+				
+				var infoid = objs;
+				$.ajax({
+					type:"post",
+					url:"<%= request.getContextPath() %>/task/changetimeout",
+					async:true,
+					data:{
+						'infoid':infoid,
+						'timeout':$('#layer-date').val()
+					},
+					//根据返回值
+					success:function(data){
+						var obj = JSON.parse(data);
+						if(obj != null && obj.result == 'true'){
+							succ();
+						}else{
+							fail();
+						}
+					},
+					error:function(){
+						fail();
+					}
+				});
+			}
+
+			/*modal  */
+			function showchangeMoney(obj){
+				layui.use('layer',function(){
+					 var layer = layui.layer;
+					 layer.open({
+						title: '更改赏金'
+						,content:'<input type="number" id="layer-money" name="layer-money" placeholder="请输入赏金" class="layui-input">'
+						,btn:['更改']
+						,yes:function(index,layero){
+							changereward(obj);
+						}
+					});    
+				});
+			}
+			function showchangeDate(obj){
+				layui.use('layer',function(){
+					 var layer = layui.layer;
+					 layer.open({
+						title: '更改截止日期'
+						,content: '<input type="text" id="layer-date" name="layer-date" placeholder="时间格式:yyyy-MM-dd" class="layui-input">'
+						,btn:['更改']
+						,yes:function(index,layero){
+							changetime(obj);
+						}
+					});    
+				});
+			}
+			/*提示框  */
+			function succ(){
+				layui.use('layer',function(){
+					 var layer = layui.layer;
+					 layer.msg('成功');
+				});
+			}
+			function fail(){
+				layui.use('layer',function(){
+					 var layer = layui.layer;
+					 layer.msg('失败');
+				});
+			}
+		</script>
 	</body>
 
 </html>

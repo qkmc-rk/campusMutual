@@ -128,7 +128,8 @@
 		/*上传完成的动作*/
 		editor.customConfig.uploadImgHooks = {
 			customInsert : function(insertImg, result, editor) {
-				var url = (window.location.href).split("/")[0] + rootPath
+				var host = "http://" + location.hostname + ":" + location.port + '/';
+				var url = host + rootPath
 						+ result.data[0];
 				insertImg(url);
 			},

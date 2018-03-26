@@ -47,8 +47,8 @@ public class PasswordAssistantImpl implements PasswordAssistant {
 	@Override
 	public void passwordToMailWithInlineResource(String usermail, String newPsd, String neckname, String oldPsd) {
 		//定义邮件发送器
-		JavaMailSenderImpl sender = new JavaMailSenderImpl();
-		sender.setDefaultEncoding("UTF-8");
+		JavaMailSenderImpl sender = (JavaMailSenderImpl) mailSender;
+		/*sender.setDefaultEncoding("UTF-8");
 		sender.setHost("smtp.qq.com");
 		sender.setProtocol("smtp");
 		sender.setPort(587);
@@ -57,7 +57,7 @@ public class PasswordAssistantImpl implements PasswordAssistant {
 		Properties  javaMailProperties = new Properties();
 		javaMailProperties.setProperty("mail.smtp.auth", "true");
 		javaMailProperties.setProperty("mail.smtp.timeout", "25000");
-		sender.setJavaMailProperties(javaMailProperties);
+		sender.setJavaMailProperties(javaMailProperties);*/
 		//定义mime message
 		MimeMessage message = sender.createMimeMessage();
 		MimeMessageHelper  helper;

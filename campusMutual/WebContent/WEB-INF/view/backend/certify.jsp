@@ -67,8 +67,8 @@
 			    ,cols: [[ //表头
 			      {field: 'id', title: 'ID', width:80, sort: true, fixed: 'left'}
 			      ,{field: 'userid', title: 'userid', width:80}
-			      ,{field: 'state', title: '状态', width:80, sort: true}
-			      ,{field: 'cardpath', title: '照片名称', width:80} 
+			      ,{field: 'state', title: 'state', width:80, sort: true}
+			      ,{field: 'cardpath', title: 'cardpath', width:80} 
 			      ,{fixed: 'right', width:150, align:'center', toolbar: '#barCRUD'} //这里的toolbar值是模板元素的选择器
 			    ]]
 			  });
@@ -80,7 +80,14 @@
 				 
 				  if(layEvent === 'detail'){ //查看
 				    //do somehing
-					alert("查看" + data.id);
+					alert("查看cardpath:" + data.cardpath);
+					alert("查看userid:" + data.userid);
+					alert("查看id:" + data.id);
+					//查看操作首先获取图片名字
+					var pic = data.cardpath;
+					window.open('<%= request.getContextPath()%>/idcardimg/' + pic);
+
+					
 				  } else if(layEvent === 'pass'){ //删除
 				    layer.confirm('真的审核通过么', function(index){
 				      //向服务端发送删除指令

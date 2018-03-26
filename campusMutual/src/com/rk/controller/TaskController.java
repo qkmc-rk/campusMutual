@@ -112,7 +112,8 @@ public class TaskController {
 	 * @param infoid 
 	 * @return <b>true</b> or <b>false</b>
 	 */
-	@RequestMapping(value="delete",method=RequestMethod.POST)
+	@RequestMapping(value="/delete")
+	@ResponseBody
 	public String deleteMypublish(HttpSession session,
 			@RequestParam("infoid")Integer infoid){
 		//ªÒ»°userid;
@@ -126,11 +127,12 @@ public class TaskController {
 		if(helpInfo.getUserid().intValue() == userid.intValue()) {
 			if(taskService.deleteHelpInfoByInfoId(infoid))
 				return JsonResult.RS_TRUE;
+			else
+				return JsonResult.RS_FALSE;
 		}else {
 			return JsonResult.RS_FALSE;
 		}
 		
-		return JsonResult.RS_FALSE;
 	}
 	
 	/**

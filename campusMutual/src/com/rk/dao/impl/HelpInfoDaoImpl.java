@@ -47,7 +47,7 @@ public class HelpInfoDaoImpl implements HelpInfoDao {
 	public Integer update(HelpInfo helpInfo) {
 		String sql = "update t_helpinfo set timeout=?,title=?,content=?,tip=?,imgpath=?,reward=? where id=?";
 		Integer rs = jdbct.update(sql,helpInfo.getTimeout(),helpInfo.getTitle(),helpInfo.getContent(),helpInfo.getTip(),
-				helpInfo.getImgpath(),helpInfo.getReward());
+				helpInfo.getImgpath(),helpInfo.getReward(),helpInfo.getId());
 		return rs;
 	}
 
