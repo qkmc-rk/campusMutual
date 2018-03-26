@@ -111,7 +111,7 @@
 				   	 <li><a href="">技术实现</a></li>
 				   	 <li><a href="">逻辑管理</a></li>
 				   	 <li><a href="">网站背景</a></li>
-				   	 <li><a href="">技术支持</a></li>
+				   	 <li><a href="<%= request.getContextPath() %>/admin/loginpage">后台管理</a></li>
 				  </ul>
 				</div>
 				<div class="col-sm-3">
